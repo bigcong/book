@@ -1,0 +1,182 @@
+﻿<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/pc/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/font-awesome.css" th:href="@{/templates/pc/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/pc/css/common.css}"/>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/pc/css/style.css}"/>
+    <link rel="stylesheet" href="css/index.css" th:href="@{/templates/pc/css/index.css}"/>
+    <!-- 技术支持由zhsit.cn提供-->
+
+</head>
+<body>
+<header>
+    <div class="head-top">
+        <div class="container" th:fragment="top">
+            <div class="left">
+                <img src="img/user-portrait.png" alt="" th:class="toptouxiang"
+                     th:src="${user.headPic==null}?@{/templates/pc/img/user-portrait.png}:@{/file/getauthfile(id=${user.headPic})}">
+                <!--th:src="@{/templates/pc/img/user-portrait.png}">-->
+                <span>欢迎<span th:text="${user!=null}? ','+${user.nickname}:''">自由3</span></span>
+            </div>
+            <div class="right">
+                <a th:href="@{/p/user/toinfomanage}">
+                    <span><i class="glyphicon glyphicon-user"></i>个人中心</span>
+                </a>
+                <a th:href="@{/p/user/logout}">
+                    <span style="margin-left: 20px"><i class="glyphicon glyphicon-log-out"></i>退出</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="head-main">
+        <div class="container input" th:fragment="search">
+            <div class="col-sm-6">
+                <form id="searchJiaoHuan" th:method="post" th:action="@{/p/search/search}">
+                    <div class="input-group">
+                        <input type="text" th:name="searchJiaoHuanKey" th:value="${searchJiaoHuanKey}"
+                               class="form-control"
+                               placeholder="查找交换书籍名称" aria-label="...">
+                        <span class="input-group-addon" onclick=" document.getElementById('searchJiaoHuan').submit()">
+                          <i class="glyphicon glyphicon-search"></i>
+                      </span>
+                        <input type="hidden" th:type="hidden" th:name="searchType" th:value="jiaohuan">
+                        <input type="hidden" th:type="hidden" th:name="page" th:value="0">
+                        <input type="hidden" th:type="hidden" th:name="total" th:value="0">
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-6">
+                <form id="searchXinYuan" th:method="post" th:action="@{/p/search/search}">
+                    <div class="input-group">
+                        <input type="text" th:name="searchXinYuanKey" th:value="${searchXinYuanKey}"
+                               class="form-control"
+                               placeholder="查找心愿书籍名称" aria-label="...">
+                        <span class="input-group-addon" style="background: #EBE5D7;"
+                              onclick=" document.getElementById('searchXinYuan').submit()">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                        <input type="hidden" th:type="hidden" th:name="searchType" th:value="xinyuan">
+                        <input type="hidden" th:type="hidden" th:name="page" th:value="0">
+                        <input type="hidden" th:type="hidden" th:name="total" th:value="0">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="mian-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img src="img/tuijian.png" alt="" th:src="@{/templates/pc/img/tuijian.png}">
+                    <div class="row">
+                        <div class="col-sm-4" th:each="book:${bookList}">
+                            <a th:href="@{'/p/book/bookdetail/'+${book.id}}">
+                                <img src="img/img01.jpg" th:height="140" alt=""
+                                     th:src="${book.path == null}?@{/templates/pc/img/img01.jpg}:@{/file/getfile(path=${book.path})}">
+                                <p th:text="${book.name}">经济学第十八版</p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4" th:remove="all">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                        <div class="col-sm-4" th:remove="all">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                    </div>
+                    <div class="row" th:remove="all">
+                        <div class="col-sm-4">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <img src="img/remen.png" alt="" th:src="@{/templates/pc/img/remen.png}">
+                    <div class="row">
+                        <div class="col-sm-4" th:each="book:${hotList}">
+                            <a th:href="@{'/p/book/bookdetail/'+${book.booksUploadedId}}">
+                                <img src="img/img01.jpg" th:height="140" alt=""
+                                     th:src="${book.path == null}?@{/templates/pc/img/img01.jpg}:@{/file/getfile(path=${book.path})}">
+                                <p th:text="${book.name}">经济学第十八版</p>
+                            </a>
+                        </div>
+                        <div class="col-sm-4" th:remove="all">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                        <div class="col-sm-4" th:remove="all">
+                            <img src="img/img01.jpg" alt=""
+                                 th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                    </div>
+                    <div class="row" th:remove="all">
+                        <div class="col-sm-4">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                        <div class="col-sm-4">
+                            <img src="img/img01.jpg" alt="" th:src="@{/templates/pc/img/img01.jpg}">
+                            <p>经济学第十八版</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:fragment="index_footer">
+    <div class="container">
+        <div class="footer-nav row">
+            <div class="col-sm-3">
+                <div><h3><img src="img/function.png" alt="" th:src="@{/templates/pc/img/function.png}"></h3>
+                    <p>使用过程中遇到的问题，包括产品描述、</p>
+                    <p> 使用方法、功能介绍、报告解读，都可以</p>
+                    <p> 在这找到答案</p></div>
+            </div>
+            <div class="col-sm-3">
+                <div><h3><img src="img/aboutUs.png" alt="" th:src="@{/templates/pc/img/aboutUs.png}"></h3>
+                    <p>出品单位:山东省方志馆</p>
+                    <p>济南市历下区旅游路25998号</p></div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/contactUs.png" alt="" th:src="@{/templates/pc/img/contactUs.png}"></h3>
+                    <p>0531-82622872</p>
+                    <p>Email:fzg@dfz.cn</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/webapp.png" alt="" th:src="@{/templates/pc/img/webapp.png}"></h3>
+                    <!--<img src="img/qrcode.jpg" alt="" th:src="@{/templates/pc/img/qrcode.jpg}">-->
+                    <img src="img/qrcode.jpg" alt="" th:width="90" th:height="73"
+                         th:src="@{/templates/pc/img/1502619839.png}">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-text">出品单位：济南方志馆 &nbsp;&nbsp;&nbsp;&nbsp; 未经同意，不得转载本网站之所有信息及作品</p>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/pc/js/jquery.min.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/templates/pc/js/bootstrap.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body{
+            background: #F0EFF5;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tologin}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">注册</p>
+    </div>
+</header>
+<section>
+    <div class="container">
+        <form action="" id="login-form" th:method="post" th:action="@{/m/user/register}" th:object="${person}">
+            <div style="background: #fff;margin-top:1rem">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="请输入手机号" th:field="*{mobile}">
+                    <p style="color:red" th:if="${#fields.hasErrors('*{mobile}')}" th:errors="*{mobile}"></p>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="请输入常用邮箱" th:field="*{email}">
+                    <p style="color:red" th:if="${#fields.hasErrors('*{email}')}" th:errors="*{email}"></p>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="请输入用户名" th:field="*{loginName}">
+                    <p style="color:red" th:if="${#fields.hasErrors('*{loginName}')}" th:errors="*{loginName}"></p>
+                </div>
+            </div>
+            <br>
+            <div style="background:#fff;">
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="请输入密码" th:field="*{pwd}">
+                    <p style="color:red" th:if="${#fields.hasErrors('*{pwd}')}" th:errors="*{pwd}"></p>
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="请再次输入密码" th:field="*{repeatPwd}">
+                    <p style="color:red" th:if="${#fields.hasErrors('*{repeatPwd}')}" th:errors="*{repeatPwd}"></p>
+                </div>
+            </div>
+            <br>
+            <p>
+                <button type="button" class="btn btn-danger btn-lg btn-block register">开始</button>
+            </p>
+        </form>
+    </div>
+</section>
+<footer></footer>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="layer_mobile/layer.js" th:src="@{/templates/app/layer_mobile/layer.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    $('.register').click(function(){
+        document.getElementById('login-form').submit();
+        return;
+        //询问框
+        layer.open({
+            content: '用户名已经被注册,请重新填写'
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                document.getElementById('login-form').reset()
+                layer.close(index);
+            }
+        });
+    })
+
+</script>
+</body>
+</html>

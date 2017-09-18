@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+
+        .nav .glyphicon {
+            display: block;
+            font-size: 2rem;
+        }
+
+        .header-bg .glyphicon {
+            color: #EA4235;
+            font-size: 1.8rem;
+        }
+
+        .list-group-item {
+            padding: 15px;
+            border-radius: 0 !important;
+            font-size: 1.5rem;
+        }
+
+        .list-group-item .glyphicon {
+            margin-right: .5rem;
+            color: #888888;
+        }
+
+        .absolute {
+            position: absolute;
+            bottom: 0;
+            left: 45%;
+            width: 18%;
+        }
+
+        .middle {
+            position: absolute;
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomymsgcenter}">
+            <i class="glyphicon glyphicon-envelope"></i>
+        </a>
+        <p class="header-title left" style="margin-top: -30px;width: 100%;" th:text="${user.nickname}">欧欧</p>
+        <a href="" class="right" style="margin-top:-30px;" th:href="@{/m/tosetting}">
+            <i class="glyphicon glyphicon-cog"></i>
+        </a>
+    </div>
+    <a th:href="@{/m/user/toinfomanage}">
+        <div class="container" style="text-align: center;background: #fff">
+
+            <div style="position: relative">
+                <img width="20%" src="img/4088.png" style=" width:66px; height:66px;border-radius: 50%;" alt=""
+                     th:src="${user.headPic==null}?@{/templates/app/img/4088.png}:@{/file/getauthfile(id=${user.headPic})}">
+                     <!--th:src="@{/templates/app/img/4088.png}">-->
+                <i class="glyphicon glyphicon-menu-right right middle"></i>
+
+                <p style="margin:0;" th:switch="${user.authStatus}">
+                    <img th:case="3" class="absolute" src="img/yirenzheng.jpg" alt="" th:src="@{/templates/app/img/yirenzheng.jpg}">
+                    <img th:case="2" class="absolute" src="img/weirenzheng.jpg" alt="" th:src="@{/templates/app/img/weirenzheng.jpg}">
+                    <img th:case="*" class="absolute" src="img/weirenzheng.jpg" alt="" th:src="@{/templates/app/img/weirenzheng.jpg}">
+                </p>
+            </div>
+            <p style="margin-top:1rem" th:text="${user.mobileStar}">158****2256</p>
+        </div>
+    </a>
+</header>
+<p style="margin: 0;background:#F0EFF5;height:1rem;"></p>
+<section>
+    <div class="bs-example" data-example-id="list-group-badges">
+        <ul class="list-group">
+            <a th:href="@{/m/user/tomybooksuploaded}">
+                <li class="list-group-item">
+                    <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
+                    <span><i class="glyphicon glyphicon-book"></i></span>
+                    上传我的书籍
+                </li>
+            </a>
+
+            <a th:href="@{/m/user/tomybooksdesired}">
+                <li class="list-group-item">
+                    <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
+                    <span><i class="glyphicon glyphicon-list-alt"></i></span>
+                    我的心愿书单
+                </li>
+            </a>
+
+            <p style="margin: 0;background:#F0EFF5;height:1rem;"></p>
+            <a th:href="@{/m/user/toshippingaddress}">
+                <li class="list-group-item">
+                    <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
+                    <span><i class="glyphicon glyphicon-map-marker"></i></span>
+                    收货地址管理
+                </li>
+            </a>
+            <a th:href="@{/m/user/tomycollecting}">
+                <li class="list-group-item">
+                    <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
+                    <span><i class="glyphicon glyphicon-star-empty"></i></span>
+                    我的收藏
+                </li>
+            </a>
+            <a th:href="@{/m/user/toaccount}">
+                <li class="list-group-item">
+                    <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
+                    <span><i class="glyphicon glyphicon-gift"></i></span>
+                    账户管理
+                </li>
+            </a>
+        </ul>
+    </div>
+</section>
+<footer th:replace="app/index::footer('我的')">
+    <div>
+        <ul class="nav">
+            <li>
+                <i class="glyphicon glyphicon-globe"></i>
+                首页
+            </li>
+            <li>
+                <i class="glyphicon glyphicon-search"></i>
+                特色搜索
+            </li>
+            <li class="red-bg">
+                <i class="glyphicon glyphicon-user"></i>
+                我的
+            </li>
+        </ul>
+    </div>
+</footer>
+
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<!-- 弹出框 js-->
+<script src="layer_mobile/layer.js" th:src="@{/templates/app/layer_mobile/layer.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+
+<script>
+
+    //    $('.list-group-item').click(function(){
+    //        //询问框
+    //        layer.open({
+    //            content: '请在个人信息中进行身份认证'
+    //            ,btn: ['去认证', '取消']
+    //            ,yes: function(index){
+    //                //点击‘去认证’后的处理代码在这里写
+    //                layer.close(index);
+    //            }
+    //        });
+    //    })
+
+</script>
+</body>
+</html>

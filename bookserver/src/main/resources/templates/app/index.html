@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <link rel="stylesheet" href="css/index.css" th:href="@{/templates/app/css/index.css}">
+    <!-- 技术支持由zhsit.cn提供-->
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <p class="header-title">
+            <img width="35%" src="img/input-title.png" alt="" th:src="@{/templates/app/img/input-title.png}">
+        </p>
+    </div>
+</header>
+<section>
+    <!-- banner图 -->
+    <div>
+        <img width="100%" src="img/img04.jpg" alt="" th:src="@{/templates/app/img/img04.jpg}">
+    </div>
+    <div class="container">
+        <!-- 推荐图书 -->
+        <div class="row">
+            <p style="margin: 1rem 0;"><img width="25%" src="img/tuijiantushu.png" alt=""
+                                            th:src="@{/templates/app/img/tuijiantushu.png}"></p>
+            <div class="col-xs-4" th:each="book:${bookList}">
+                <a th:href="@{'/m/book/bookdetail/'+${book.id}}">
+                    <img width="100%" th:height="90" src="img/img01.jpg" alt=""
+                         th:src="${book.path == null}?@{/templates/app/img/img01.jpg}:@{/file/getfile(path=${book.path})}">
+                    <p th:text="${book.name}">经济学第18版</p>
+                </a>
+            </div>
+            <div class="col-xs-4" th:remove="all">
+                <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+                <p>经济学第18版</p>
+            </div>
+            <div class="col-xs-4" th:remove="all">
+
+                <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+                <p>经济学第18版</p>
+
+            </div>
+        </div>
+        <!-- 热门排行 -->
+        <div class="row">
+            <p><img width="25%" src="img/remenpaihang.png" alt="" th:src="@{/templates/app/img/remenpaihang.png}"></p>
+            <div class="col-xs-4" th:each="book:${hotList}">
+                <a th:href="@{'/m/book/bookdetail/'+${book.booksUploadedId}}">
+                    <img width="100%" th:height="90" src="img/img01.jpg" alt=""
+                         th:src="${book.path == null}?@{/templates/app/img/img01.jpg}:@{/file/getfile(path=${book.path})}">
+                    <p th:text="${book.name}">经济学第18版</p>
+                </a>
+            </div>
+            <div class="col-xs-4" th:remove="all">
+                <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+                <p>经济学第18版</p>
+            </div>
+            <div class="col-xs-4" th:remove="all">
+                <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+                <p>经济学第18版</p>
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:fragment="footer(redLiIndex)">
+    <div>
+        <ul class="nav">
+            <a th:href="@{/m/index}">
+                <li class="red-bg" th:class="${redLiIndex == null} ? 'red-bg' :''">
+                    <i class="glyphicon glyphicon-globe"></i>
+                    首页
+                </li>
+            </a>
+            <a th:href="@{/m/search/tosearch}">
+                <li th:class="${redLiIndex=='特色搜索'} ? 'red-bg' :''">
+                    <i class="glyphicon glyphicon-search"></i>
+                    特色搜索
+                </li>
+            </a>
+            <a th:href="@{/m/user/tomine}">
+                <li th:class="${redLiIndex=='我的'} ? 'red-bg' :''">
+                    <i class="glyphicon glyphicon-user"></i>
+                    我的
+                </li>
+            </a>
+        </ul>
+    </div>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+</body>
+</html>

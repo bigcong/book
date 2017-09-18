@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+
+        .row {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            position: relative;
+        }
+
+        h4 {
+            height: 31%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #19110F;
+        }
+
+        p {
+            height: 23%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #6C6C6C;
+        }
+
+        .row:after {
+            content: '';
+            display: block;
+            width: 93%;
+            visibility: visible;
+            border-bottom: 1px solid #E2E2E2;
+            margin: 0 auto;
+            transform: translateY(1rem);
+        }
+
+        .hid {
+            display: none;
+        }
+
+        .hid u {
+            display: inline-block;
+            height: 1.7rem;
+            width: 1.7rem;
+            border: 1px solid #5D5D5D;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: -2rem;
+            transform: translateY(-50%);
+        }
+
+        .nav-hid u {
+            display: inline-block;
+            height: 1.7rem;
+            width: 1.7rem;
+            border: 1px solid #5D5D5D;
+            border-radius: 50%;
+            margin: 0 .7rem -.3rem 1.5rem;
+        }
+
+        .container {
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .nav-hid {
+            background: #fff;
+            margin: 0;
+        }
+
+        .nav-hid li {
+            float: left;
+            width: 70%;
+            padding: 1.2rem 0;
+            color: #888;
+        }
+
+        .red-bg {
+            width: 30% !important;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomine}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">我的收藏</p>
+        <a href="javascript:void(0)" class="right compile" style="margin-top: -24px;">编辑</a>
+    </div>
+</header>
+<p style="background: #F1F1F1;height: 0.5rem;margin:0"></p>
+<section>
+    <div class="container">
+        <div class="row" th:each="book:${collectList}">
+            <div class="hid" th:attr="collectingid=${book.id}">
+                <u data="0"></u>
+            </div>
+            <div class="col-xs-5">
+                <img width="100%" src="img/img01.jpg" alt="" th:height="100"
+                     th:src="${book.path == null}?@{/templates/app/img/img01.jpg}:@{/file/getfile(path=${book.path})}">
+            </div>
+            <div class="col-xs-7" style="padding-left: 0">
+                <h4 th:text="${book.name}">经济学 第18版经济学 第18版经济学 第18版</h4>
+                <p>作者：<span th:text="${book.author}">保罗*萨摩尔森经济学 第18版经济学 第18版</span></p>
+                <p>想要得到的书：无</p>
+                <p th:text="${#dates.format(book.createTime,'MM-dd')}">04-22</p>
+            </div>
+        </div>
+        <div class="row" th:remove="all">
+            <div class="hid">
+                <u data="0"></u>
+            </div>
+            <div class="col-xs-5">
+                <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+            </div>
+            <div class="col-xs-7" style="padding-left: 0">
+                <h4>经济学 第18版</h4>
+                <p>作者：保罗*萨摩尔森</p>
+                <p>想要得到的书：无</p>
+                <p>04-22</p>
+            </div>
+        </div>
+        <div class="row" th:remove="all">
+            <div class="hid">
+                <u data="0"></u>
+            </div>
+            <div class="col-xs-5">
+                <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+            </div>
+            <div class="col-xs-7" style="padding-left: 0">
+                <h4>经济学 第18版</h4>
+                <p>作者：保罗*萨摩尔森</p>
+                <p>想要得到的书：无</p>
+                <p>04-22</p>
+            </div>
+        </div>
+    </div>
+</section>
+<footer style="display: none">
+    <ul class="nav-hid">
+        <li>
+            <u data="0"></u>
+            全选
+        </li>
+        <li class="red-bg">
+            删除
+        </li>
+    </ul>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    //设置图文排版的高度
+    var height = $('.col-xs-5').height();
+    $('.col-xs-7').css('height', height + 'px');
+    var backgroundImg = "img/default.png";
+    var javaBackgroundImg = "[[@{/templates/app/img/default.png}]]";
+    if (javaBackgroundImg.indexOf("@{") > 0) {
+    } else {
+        backgroundImg = javaBackgroundImg;
+    }
+    //头部 右侧 的编辑和完成切换
+    $('.compile').click(function () {
+        if ($(this).text() == '编辑') {
+            $(this).text('完成').css('color', 'red')
+            $('.row').css('transform', 'translateX(40px)');
+            $('.hid').show();
+            $('footer').show();
+        } else {
+            $(this).text('编辑').css('color', '#333')
+            $('.row').css('transform', 'translateX(0)');
+            $('.hid').hide();
+            $('footer').hide();
+        }
+
+    })
+    //点击选择
+    $('.hid u').click(function () {
+        if ($(this).attr('data') == 0) {
+            $(this).css('background', 'url(' + backgroundImg + ')').css('background-size', 'cover').css('border', 'none');
+            $(this).attr('data', '1')
+        } else {
+            $(this).css('background', 'none').css('border', '1px solid #5D5D5D');
+            $(this).attr('data', '0')
+        }
+    })
+
+    //点击全选
+    $('.nav-hid u').click(function () {
+        if ($(this).attr('data') == 0) {
+            $(this).css('background', 'url(' + backgroundImg + ')').css('background-size', 'cover').css('border', 'none').attr('data', '1');
+            $('.hid u').css('background', 'url(' + backgroundImg + ')').css('background-size', 'cover').css('border', 'none').attr('data', '1');
+        } else {
+            $(this).css('background', 'none').css('border', '1px solid #5D5D5D').attr('data', '0');
+            $('.hid u').css('background', 'none').css('border', '1px solid #5D5D5D').attr('data', '0');
+        }
+    })
+
+    //点击删除
+    $('.red-bg').click(function () {
+        $('.hid u').each(function (index, val) {
+            if ($(val).attr('data') == 1) {
+                var collectingId = $(val).parent().attr('collectingid');
+                $.get("/m/user/delmycollecting/" + collectingId, {}, function (data) {
+                    if (data == "ok") {
+                        $(val).parent().parent().remove()
+                    }
+                });
+            }
+        })
+    })
+</script>
+</body>
+</html>

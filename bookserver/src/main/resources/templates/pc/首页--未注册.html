@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/pc/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/font-awesome.css" th:href="@{/templates/pc/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/pc/css/common.css}"/>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/pc/css/style.css}"/>
+    <link rel="stylesheet" href="css/indexnoregister.css" th:href="@{/templates/pc/css/indexnoregister.css}"/>
+
+</head>
+<!-- 技术支持由zhsit.cn提供-->
+<body>
+<header>
+    <div class="head-top">
+        <div class="container">
+            <div class="right">
+                <a th:href="@{/p/user/toregister}">
+                    <span>注册</span>
+                </a>
+                <a th:href="@{/p/user/tologin}">
+                    <span style="margin-left: 20px">登陆</span>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="head-main">
+        <div class="container input">
+            <div class="col-sm-10">
+                <form id="searchJiaoHuan" th:method="post" th:action="@{/p/search/search}">
+                    <div class="input-group">
+                        <input type="text"  th:name="searchJiaoHuanKey" th:value="${searchJiaoHuanKey}" class="form-control" placeholder="查找交换书籍名称" aria-label="...">
+                   <span class="input-group-addon"  onclick=" document.getElementById('searchJiaoHuan').submit()">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                        <input type="hidden" th:type="hidden" th:name="searchType" th:value="jiaohuan">
+                        <input type="hidden"  th:type="hidden" th:name="page" th:value="0">
+                        <input type="hidden"  th:type="hidden" th:name="total" th:value="0">
+                    </div>
+                </form>
+            </div>
+            <div class="col-sm-2">
+                <a th:href="@{/p/user/toregister}">
+                    <div class="input-group">
+                   <span class="input-group-addon"
+                         style="background: #EBE5D7;padding: 6px 12px;border: 2px solid #88654F;color: #E94333">
+                      免费<br>注册
+                  </span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="mian-bg">
+
+    </div>
+</section>
+<footer th:replace="pc/index::index_footer">
+    <div class="container">
+        <div class="footer-nav row">
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/aboutUs.png" alt=""></h3>
+                    <p>出品单位:山东省方志馆</p>
+                    <p>济南市历下区旅游路25998号</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/function.png" alt=""></h3>
+                    <p>使用过程中遇到的问题，包括产品描述、</p>
+                    <p> 使用方法、功能介绍、报告解读，都可以</p>
+                    <p> 在这找到答案</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/contactUs.png" alt=""></h3>
+                    <p>0531-82622872</p>
+                    <p>Email:fzg@dfz.cn</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/webapp.png" alt=""></h3>
+                    <img src="img/qrcode.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-text">出品单位：济南方志馆 &nbsp;&nbsp;&nbsp;&nbsp; 未经同意，不得转载本网站之所有信息及作品</p>
+</footer>
+<script type="text/javascript" src="js/jquery.min.js" th:src="@{/templates/pc/js/jquery.min.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/templates/pc/js/bootstrap.min.js}"></script>
+</body>
+</html>

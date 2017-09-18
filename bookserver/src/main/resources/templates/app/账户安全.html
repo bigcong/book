@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+        .container{
+            background: #fff;
+        }
+        .button-bg{
+            background: #F0EFF5;
+            margin-left: -15px;
+            margin-right: -15px;
+            padding: 2rem;
+        }
+        input{
+            height:45px !important;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomine}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">账户安全</p>
+    </div>
+</header>
+<p style="margin: 0;background: #F0EFF5;height: 1rem;"></p>
+<section>
+    <div class="container">
+        <form action="" th:method="post" th:action="@{/m/user/modifyaccount}" th:object="${account}">
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="输入原密码"  th:field="*{oldPwd}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{oldPwd}')}" th:errors="*{oldPwd}"></p>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="输入新密码"  th:field="*{newPwd}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{newPwd}')}" th:errors="*{newPwd}"></p>
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="再次输入新密码" th:field="*{repeatNewPwd}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{repeatNewPwd}')}" th:errors="*{repeatNewPwd}"></p>
+            </div>
+            <div class="button-bg">
+                <button type="submit" class="btn btn-danger btn-lg btn-block register">确定</button>
+            </div>
+        </form>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+</body>
+</html>

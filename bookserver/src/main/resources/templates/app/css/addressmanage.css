@@ -1,0 +1,38 @@
+body {
+    background: #F0EFF5;
+}
+
+.box {
+    background: #fff;
+    padding-top: .1rem;
+}
+
+.box p {
+    margin: .9rem 0;
+    padding: 0 1.5rem;
+}
+
+.operation {
+    border-top: 1px solid #ccc;
+    padding-top: .9rem !important;
+    color: #777;
+}
+
+.operation u {
+    display: inline-block;
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 1px solid #8c8c8c;
+    border-radius: 50%;
+    margin-bottom: -5px;
+}
+
+.default {
+    color: #EA4235;
+}
+
+.default u {
+    background: url("../img/default.png") 100% no-repeat;
+    background-size: cover;
+    border: none;
+}

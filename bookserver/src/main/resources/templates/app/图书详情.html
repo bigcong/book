@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        html {
+            background: #F0EFF5;
+        }
+
+        .header-bg {
+            line-height: 1px;
+        }
+
+        .header-bg a {
+            margin-top: 3px;
+        }
+
+        .nav-title {
+            text-align: center;
+            margin: 0;
+        }
+
+        .nav-title li {
+            text-align: center;
+            width: 30%;
+            display: inline-block;
+        }
+
+        p {
+            padding: .1rem .5rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" onclick="window.history.back()">
+           <!--th:href="@{/m/index}">-->
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <ul class="nav-title">
+            <li>
+                <img width="70%" src="img/tushuxiangqing-active.png" alt=""
+                     th:src="@{/templates/app/img/tushuxiangqing-active.png}">
+            </li>
+            <li>
+                <a th:href="@{'/m/book/tobooksdesired/'+${book.id}}">
+                    <img width="70%" src="img/xinyuanshudan.png" alt=""
+                         th:src="@{/templates/app/img/xinyuanshudan.png}">
+                </a>
+            </li>
+        </ul>
+    </div>
+</header>
+<section>
+    <!-- banner图 -->
+    <div>
+        <img width="100%" src="img/img04.jpg" alt="" th:src="@{/templates/app/img/img04.jpg}">
+    </div>
+    <div class="container">
+        <h4 style="margin:1.2rem 0;" th:text="${book.name}">经济学第18版经济学第18版</h4>
+        <p class="linear">作者：<span th:text="${book.author}">知己知彼</span></p>
+        <p>出版商：<span th:text="${book.publishers}">清华大学出版社</span></p>
+        <p class="linear">版本号/页数：<span th:text="${book.pages}">1.01版本</span></p>
+        <p>ISBN：<span th:text="${book.isbn}">1.01版本</span></p>
+    </div>
+    <p style="background:#F0EFF5;height:1rem"></p>
+    <div class="container">
+        <p th:text="${book.descr}">本书是长篇小说，以陕西关中平原上素有“仁义村”之称的白鹿村为背景，细腻地反映出白姓和鹿姓两大家族祖孙三代的恩怨纷争。全书浓缩着深沉的民族历史内涵，有令人震撼的真
+            实感和厚重的史诗风格。</p>
+    </div>
+</section>
+<footer>
+    <div>
+        <ul class="nav-operation" th:fragment="foot">
+            <li class="red-bg" th:id="${book.id}">
+                <i class="glyphicon glyphicon-earphone"></i>
+                <span>联系主人</span>
+            </li>
+            <li class="collect" th:id="${book.id}" th:attr="collect=${collect}">
+                <i class="glyphicon glyphicon-heart"></i>
+                <span th:text="${collect}?'已收藏':'图书收藏'" id="collectShow">图书收藏</span>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="layer_mobile/layer.js" th:src="@{/templates/app/layer_mobile/layer.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+
+<script th:fragment="link-collecting">
+    $('.red-bg').click(function () {
+        var obj = $(this);
+        var bookId = obj.attr("id");
+        $.get("/m/user/checkauth", {},
+                function (data) {
+                    if ("fail" == data) {
+                        layer.open({
+                            content: '请进行认证,就可以联系到主人欧~'
+                            , btn: ['去认证', '取消']
+                            , yes: function (index) {
+                                window.location.href = "/m/user/toauthselect";
+                                $(obj).parent().remove();
+                                layer.close(index);
+                            }
+                        });
+                    } else if ("ok" == data) {
+                        window.location.href = "/m/user/contractowner/" + bookId;
+                    }
+                });
+    })
+
+    $('.collect').click(function () {
+        var obj = $(this);
+        var bookId = obj.attr("id");
+        var collect = obj.attr("collect");
+        if (collect == true) {
+            layer.open({
+                content: '已经收藏'
+                , skin: 'msg'
+                , time: 2 //2秒后自动关闭
+            });
+            return;
+        }
+        $.get("/m/book/bookcollect/"+bookId,{},function (CollectionResp) {
+            if (!CollectionResp.rstatus) {
+                layer.open({
+                    content: CollectionResp.msg
+                    , skin: 'msg'
+                    , time: 2
+                });
+                return;
+            } else if (CollectionResp.rstatus) {
+                layer.open({
+                    content: '恭喜!收藏成功'
+                    , skin: 'msg'
+                    , time: 2
+                });
+                $("#collectShow").text('已收藏');
+                return;
+            }
+        });
+    })
+</script>
+</body>
+</html>

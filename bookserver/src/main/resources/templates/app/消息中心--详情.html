@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        p{
+            margin-top: 1rem;
+        }
+        time{
+            display: block;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" th:href="@{/m/user/tomymsgcenter}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <!--<p class="header-title" th:text="${msg.senderNick}">开心的老虎</p>-->
+        <p class="header-title" th:text="${msg.title}">开心的老虎</p>
+    </div>
+</header>
+<p style="margin: 0;background: #F0EFF5;height: 1rem;"></p>
+<section>
+    <div class="container">
+        <p><time  th:text="${#dates.format(msg.createTime,'yyyy.MM.dd')}">2017.02.02</time></p>
+        <img width="100%" src="img/img03.jpg" alt=""
+             th:src="${msg.path == null}?@{/templates/app/img/img03.jpg}:@{/file/getfile(path=${msg.path})}">
+        <p th:text="${msg.content}">经济学 第18版（萨缪尔森经典巨著)经济学 第18版（萨缪尔森经典巨著)经济学 第18版（萨缪尔森经典巨著)经济学 第18版（萨缪尔森经典巨著)经济学 第18版（萨缪尔森经典巨著)经济学 第18版</p>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+</body>
+</html>

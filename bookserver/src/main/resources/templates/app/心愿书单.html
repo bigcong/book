@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        .header-bg {
+            line-height: 1px;
+        }
+
+        .header-bg a {
+            margin-top: 3px;
+        }
+
+        .nav-title {
+            text-align: center;
+            margin: 0;
+        }
+
+        .nav-title li {
+            text-align: center;
+            width: 30%;
+            display: inline-block;
+        }
+
+        p {
+            padding: 0;
+        }
+
+        .list-img {
+            position: relative;
+            margin-bottom: 1rem;
+        }
+
+        .position {
+            position: absolute;
+            background: rgba(0, 0, 0, .5);
+            color: #fff;
+            bottom: 0;
+            width: 100%;
+            padding: 0 1rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/index}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <ul class="nav-title">
+            <li>
+                <a th:href="@{'/m/book/bookdetail/'+${bookId}}">
+                    <img width="70%" src="img/tushuxiangqing.png" alt=""
+                         th:src="@{/templates/app/img/tushuxiangqing.png}">
+                </a>
+            </li>
+            <li>
+                <img width="70%" src="img/xinyuanshudan-active.png" alt=""
+                     th:src="@{/templates/app/img/xinyuanshudan-active.png}">
+            </li>
+        </ul>
+    </div>
+</header>
+<p style="background: #F1F1F1;height: 0.5rem;"></p>
+<section>
+    <div class="container">
+        <ul th:replace="app/我的心愿书单::myDesiredList">
+            <li class="list-img">
+                <img width="100%" src="img/img02.jpg" alt="" th:src="@{/templates/app/img/img02.jpg}">
+                <div class="position">
+                    <h4>魔鬼经济学</h4>
+                    <span class="right">04-02</span>
+                    <p>作者：保罗*萨摩尔森</p>
+                </div>
+            </li>
+            <li class="list-img">
+                <img width="100%" src="img/img02.jpg" alt="" th:src="@{/templates/app/img/img02.jpg}">
+                <div class="position">
+                    <h4>魔鬼经济学</h4>
+                    <span class="right">04-02</span>
+                    <p>作者：保罗*萨摩尔森</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<footer>
+    <div>
+        <ul class="nav-operation" th:replace="app/图书详情::foot">
+            <li class="red-bg">
+                <i class="glyphicon glyphicon-earphone"></i>
+                联系主人
+            </li>
+            <li class="collect">
+                <i class="glyphicon glyphicon-heart"></i>
+                图书收藏
+            </li>
+        </ul>
+    </div>
+</footer>
+
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script src="layer_mobile/layer.js" th:src="@{/templates/app/layer_mobile/layer.js}"></script>
+<script th:replace="app/图书详情::link-collecting">
+</script>
+</body>
+</html>

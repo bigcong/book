@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/pc/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/font-awesome.css" th:href="@{/templates/pc/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/pc/css/common.css}"/>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/pc/css/style.css}"/>
+    <style>
+        .form .input-group .form-control {
+            width: 97%;
+        }
+
+        .btn-default {
+            padding: 10px 30px;
+            background: #FCFBF7;
+        }
+    </style>
+</head>
+<body>
+<header></header>
+<section class="bg-img">
+    <div class="content-register">
+        <div>
+            <img src="img/login.png" alt="" th:src="@{/templates/pc/img/login.png}">
+        </div>
+        <ul class="attestation">
+            <a th:href="@{/p/user/topersonauth}">
+                <li>
+                <span>
+
+                    <img src="img/attestation-geren.jpg" alt="" th:src="@{/templates/pc/img/attestation-geren.jpg}">
+
+                    <img class="duihao" src="img/right.png" alt="" th:src="@{/templates/pc/img/right.png}">
+                </span>
+                </li>
+            </a>
+            <a th:href="@{/p/user/toorgauth}">
+                <li>
+                <span>
+                    <img src="img/attestation-danwei.jpg" alt="" th:src="@{/templates/pc/img/attestation-danwei.jpg}">
+                </span>
+                </li>
+            </a>
+        </ul>
+        <div style="text-align: center">
+            <button class="btn btn-default">跳过</button>
+        </div>
+        <img class="book" src="img/book.png" alt="" th:src="@{/templates/pc/img/book.png}">
+    </div>
+</section>
+<footer th:replace="pc/index::index_footer">
+    <div class="container">
+        <div class="footer-nav row">
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/aboutUs.png" alt=""></h3>
+                    <p>出品单位:山东省方志馆</p>
+                    <p>济南市历下区旅游路25998号</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/function.png" alt=""></h3>
+                    <p>使用过程中遇到的问题，包括产品描述、</p>
+                    <p> 使用方法、功能介绍、报告解读，都可以</p>
+                    <p> 在这找到答案</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/contactUs.png" alt=""></h3>
+                    <p>0531-82622872</p>
+                    <p>Email:fzg@dfz.cn</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/webapp.png" alt=""></h3>
+                    <img src="img/qrcode.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-text">出品单位：济南方志馆 &nbsp;&nbsp;&nbsp;&nbsp; 未经同意，不得转载本网站之所有信息及作品</p>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/pc/js/jquery.min.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/templates/pc/js/bootstrap.min.js}"></script>
+<script>
+    var imgPath = "img/right.png";
+    var imgPathJava = "[[@{/templates/pc/img/right.png}]]"
+    if (imgPathJava.indexOf("@{") > 0) {
+    } else {
+        imgPath = imgPathJava;
+    }
+    //点击认证图像 选择
+    $('.attestation span').click(function () {
+        $('.attestation span .duihao').remove();
+        var img = '<img class="duihao" src=' + imgPath + ' alt="">';
+        $(this).append(img);
+    })
+</script>
+</body>
+</html>

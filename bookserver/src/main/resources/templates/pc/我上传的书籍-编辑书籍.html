@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/pc/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/font-awesome.css" th:href="@{/templates/pc/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/pc/css/common.css}"/>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/pc/css/style.css}"/>
+    <style>
+        .input {
+            left:auto;
+            right: 0;
+            transform: translateY(-50%);
+        }
+        .input-group input {
+            border-radius: 0;
+            height: 45px;
+            background: rgba(225,225,225,0.9);
+            border: 2px solid #88654F;
+            border-right: none;
+        }
+        .input-group span {
+            border-radius: 0;
+            padding: 12px 18px;
+            border: 2px solid #88654F;
+            border-left: none;
+            background: #EA4235;
+            cursor: pointer;
+        }
+        .glyphicon{
+            margin-right: 5px;
+        }
+        .mian-bg h3{
+            font-size:16px;
+            font-weight: 700;
+            margin: 2px 0 13px;
+        }
+        .nav-pills{
+            background: #fff;
+            margin-top: 20px;
+        }
+        .nav-pills>li>a,.nav-pills>li>a:hover,.nav-pills>li>a:focus{
+            border-radius: 0;
+            color:#454545;
+            background-color: #fff;
+        }
+        .mian-bg{
+            padding-bottom:50px;
+        }
+        .nav-stacked>li{
+            border-bottom: 1px solid #E5E5E5;
+        }
+        .content-register{
+            margin:0;
+        }
+        label{
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="head-top">
+        <div class="container" th:replace="pc/index::top">
+            <div class="left">
+                <img src="img/user-portrait.png" alt="">
+                <span>欢迎,自由</span>
+            </div>
+            <div class="right">
+                <span><i class="glyphicon glyphicon-user"></i>个人中心</span>
+                <span style="margin-left: 20px"><i class="glyphicon glyphicon-log-out"></i>退出</span>
+            </div>
+        </div>
+    </div>
+    <div class="head-main01">
+        <div class="container input" th:replace="pc/index::search">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="查找交换书籍名称" aria-label="...">
+                   <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="查找心愿书籍名称" aria-label="...">
+                   <span class="input-group-addon" style="background: #EBE5D7;">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="mian-bg">
+        <div class="container">
+            <div class="col-sm-3" th:replace="pc/个人信息管理-已认证::menu('我上传的书籍')">
+                <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-user"></i>个人信息管理</a></li>
+                    <li role="presentation" class="active"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>我上传的书籍</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-heart-empty"></i>我的心愿书单</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-map-marker"></i>收货地址管理</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-star-empty"></i>我的收藏</a></li>
+                </ul>
+                <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-user"></i>账户安全</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-envelope"></i>消息列表</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-pencil"></i>意见反馈</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <p class="bread-nav"><a href="">个人中心></a>我上传的书籍</p>
+                <div class="content-register">
+                    <div>
+                        <img src="img/bianji.png" alt="" th:src="@{/templates/pc/img/bianji.png}">
+                    </div>
+                    <form style="margin-top: 20px" action="" enctype="multipart/form-data" th:method="post" th:action="@{/p/user/booksmodify}"  th:object="${book}">
+                        <input type="hidden" th:field="*{id}">
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">书名:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder=""  th:field="*{name}">
+                                <p style="color:red" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">作者:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="" th:field="*{author}">
+                                <p style="color:red" th:if="${#fields.hasErrors('*{author}')}" th:errors="*{author}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">ISBN:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="" th:field="*{isbn}">
+                                <p style="color:red" th:if="${#fields.hasErrors('*{isbn}')}" th:errors="*{isbn}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">出版商:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="" th:field="*{publishers}">
+                                <p style="color:red" th:if="${#fields.hasErrors('*{publishers}')}" th:errors="*{publishers}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">版本号/页数:</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" placeholder="" th:field="*{pages}">
+                                <p style="color:red" th:if="${#fields.hasErrors('*{pages}')}" th:errors="*{pages}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">添加文字:</label>
+                            <div class="col-sm-9">
+                                <textarea style="width: 100%;height: 100px;" th:field="*{descr}"></textarea>
+                                <p style="color:red" th:if="${#fields.hasErrors('*{descr}')}" th:errors="*{descr}"></p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label">添加图片:</label>
+                            <div id="img" class="col-sm-9">
+                                <div class="moren" style="display: inline-block;margin-right:5px;position: relative;width: 31%;" th:each="imgFile:${fileList}">
+                                    <img src="img/file-upload.jpg" alt="" width="100%" th:src="@{/file/getfile(path=${imgFile.path})}">
+                                    <input class="file01" type="file" name="imgFiles">
+                                    <i th:id="${imgFile.id}"
+                                       style="position: absolute;display: block;top: -8px;right: -10px;font-size: 18px;"
+                                       class="glyphicon glyphicon-remove-circle remove"></i>
+                                </div>
+                                <div  style="display: inline-block;margin-right:5px;position: relative;width: 31%;">
+                                    <img src="img/file-upload.jpg" alt=""  width="100%"  th:src="@{/templates/pc/img/file-upload.jpg}">
+                                    <input class="file01" type="file" name="imgFiles">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-sm-3 control-label"></label>
+                            <div class="col-sm-9">
+                                <button type="button" th:type="submit" class="btn btn-lg login">&nbsp;&nbsp;&nbsp;保存&nbsp;&nbsp;&nbsp;</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:replace="pc/index::index_footer">
+    <div class="container">
+        <div class="footer-nav row">
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/aboutUs.png" alt=""></h3>
+                    <p>出品单位:山东省方志馆</p>
+                    <p>济南市历下区旅游路25998号</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/function.png" alt=""></h3>
+                    <p>使用过程中遇到的问题，包括产品描述、</p>
+                    <p> 使用方法、功能介绍、报告解读，都可以</p>
+                    <p> 在这找到答案</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/contactUs.png" alt=""></h3>
+                    <p>0531-82622872</p>
+                    <p>Email:fzg@dfz.cn</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/webapp.png" alt=""></h3>
+                    <img src="img/qrcode.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-text">出品单位：济南方志馆 &nbsp;&nbsp;&nbsp;&nbsp; 未经同意，不得转载本网站之所有信息及作品</p>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/pc/js/jquery.min.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/templates/pc/js/bootstrap.min.js}"></script>
+<script src="layer/layer.js" th:src="@{/templates/pc/layer/layer.js}"></script>
+<script>
+    var num = $('.moren').length + 1;
+
+    $(document).delegate('.file01', 'change', function () {
+        var fileValue = $('.file01').val().split("\\")[2];
+        var file = this.files[0];
+        if (!/image\/\w+/.test(file.type)) {
+            alert("请确保文件为图像类型");
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            var uploadImg = "img/file-upload.jpg";
+            var javaUploadImgPath = "[[@{/templates/pc/img/file-upload.jpg}]]";
+            if (javaUploadImgPath.indexOf("@{") > 0) {
+            } else {
+                uploadImg = javaUploadImgPath;
+            }
+            $('#img div:nth-child(' + num + ') img').attr('src', this.result)
+            $('#img div:nth-child(' + num + ') input').css('display', 'none');
+            var remove = '<i style="position: absolute;display: block;top: -8px;right: -10px;font-size: 18px;" class="glyphicon glyphicon-remove-circle remove"></i>';
+            $('#img div:nth-child(' + num + ')').append(remove);
+            var img = '<div  style="display: inline-block;margin-right:5px;position: relative;width: 31%;"><img width="100%" src=' + uploadImg + ' alt=""  width="100%"><input class="file01" type="file" name="imgFiles"></div>';
+            $('#img').append(img);
+            num++;
+            console.log(num)
+        }
+    })
+
+
+    $(document).delegate('.remove', 'click', function () {
+
+        var obj = $(this);
+        var delImgId = $(this).attr("id");
+        if(delImgId==null){
+            num--;
+            $(obj).parent().remove();
+            return;
+        }
+        num--;
+        //询问框
+        layer.open({
+            content: '<p>确认删除？</p><p>删除后不可恢复</p>'
+            , btn: ['确认', '取消']
+            , yes: function (index, layero) {
+                $.get("/m/user/mybooksimgdel/" + delImgId, {},
+                        function (data) {
+                            if ("ok" == data) {
+                                layer.open({
+                                    content: '<p>已经成功删除</p>'
+                                    , btn: ['确认']
+                                    , yes: function (index) {
+                                        $(obj).parent().remove();
+                                        layer.close(index);
+                                    }
+                                });
+                            }
+                            layer.close(index);
+                        });
+            }
+        });
+
+        console.log(num)
+    })
+</script>
+</body>
+</html>

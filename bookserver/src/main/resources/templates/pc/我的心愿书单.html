@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/pc/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/font-awesome.css" th:href="@{/templates/pc/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/pc/css/common.css}"/>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/pc/css/style.css}"/>
+    <style>
+        .input {
+            left:auto;
+            right: 0;
+            transform: translateY(-50%);
+        }
+        .input-group input {
+            border-radius: 0;
+            height: 45px;
+            background: rgba(225,225,225,0.9);
+            border: 2px solid #88654F;
+            border-right: none;
+        }
+        .input-group span {
+            border-radius: 0;
+            padding: 12px 18px;
+            border: 2px solid #88654F;
+            border-left: none;
+            background: #EA4235;
+            cursor: pointer;
+        }
+        .glyphicon{
+            margin-right: 5px;
+        }
+        .mian-bg h3{
+            font-size:14px;
+            font-weight: 700;
+            margin:7px 0;
+        }
+        .nav-pills{
+            background: #fff;
+            margin-top: 20px;
+        }
+        .nav-pills>li>a,.nav-pills>li>a:hover,.nav-pills>li>a:focus{
+            border-radius: 0;
+            color:#454545;
+            background-color: #fff;
+        }
+        .mian-bg{
+            padding-bottom:50px;
+        }
+        .nav-stacked>li{
+            border-bottom: 1px solid #E5E5E5;
+        }
+        .plus,.plus:active,.plus:hover,.plus:focus{
+            margin-top: -40px;
+            padding:3px 15px;
+            background: #512E2C;
+            border-radius:0;
+            color: #fff;
+        }
+        .row{
+            margin-left: 0;
+        }
+        .row span{
+            display: inline-block;
+            position: relative;
+        }
+        .remove{
+            position:absolute;
+            right: 0;
+            bottom:0;
+            background: #2A1F1B;
+            color: #fff;
+            padding: 2px 10px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="head-top">
+        <div class="container" th:replace="pc/index::top">
+            <div class="left">
+                <img src="img/user-portrait.png" alt="">
+                <span>欢迎,自由</span>
+            </div>
+            <div class="right">
+                <span><i class="glyphicon glyphicon-user"></i>个人中心</span>
+                <span style="margin-left: 20px"><i class="glyphicon glyphicon-log-out"></i>退出</span>
+            </div>
+        </div>
+    </div>
+    <div class="head-main01">
+        <div class="container input" th:replace="pc/index::search">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="查找交换书籍名称" aria-label="...">
+                   <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="查找心愿书籍名称" aria-label="...">
+                   <span class="input-group-addon" style="background: #EBE5D7;">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="mian-bg">
+        <div class="container">
+            <div class="col-sm-3" th:replace="pc/个人信息管理-已认证::menu('我的心愿书单')">
+                <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-user"></i>个人信息管理</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-list-alt"></i>我上传的书籍</a></li>
+                    <li role="presentation" class="active"><a href="#"><i class="glyphicon glyphicon-heart-empty"></i>我的心愿书单</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-map-marker"></i>收货地址管理</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-star-empty"></i>我的收藏</a></li>
+                </ul>
+                <ul class="nav nav-pills nav-stacked nav-pills-stacked-example">
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-user"></i>账户安全</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-envelope"></i>消息列表</a></li>
+                    <li role="presentation"><a href="#"><i class="glyphicon glyphicon-pencil"></i>意见反馈</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                <p class="bread-nav"><a href="">个人中心></a>我的心愿书单</p>
+                <button class="btn btn-default plus right"  th:onclick="'goPage(\'/p/user/tomybooksdesiredadd\')'">+&nbsp;添加书单</button>
+                <div style="background: #fff;padding: 20px;">
+                    <div class="row">
+                        <form id="bookDesiredForm" th:method="post" th:action="@{/p/user/tomybooksdesired}">
+                            <input type="hidden" th:type="hidden" th:name="page" th:value="0">
+                            <input type="hidden" th:type="hidden" th:name="total" th:value="0">
+                        </form>
+                        <div style="width:19%;display: inline-block"  th:each="desired:${desiredList}">
+                            <span>
+                                <img style="width:100%;" src="img/img01.jpg" alt=""  th:src="${desired.path == null}?@{/templates/pc/img/img01.jpg}:@{/file/getfile(path=${desired.path})}">
+                                <button class="remove"  th:attr="desiredId=${desired.id}">删除</button>
+                            </span>
+                            <h3>书名:<span  th:text="${desired.name}">魔鬼经济学</span></h3>
+                            <p  th:text="${#dates.format(desired.createTime,'MM-dd')}">02-20</p>
+                        </div>
+                        <div style="width:19%;display: inline-block" th:remove="all">
+                            <span>
+                                <img style="width:100%;" src="img/img01.jpg" alt="">
+                                <button class="remove">删除</button>
+                            </span>
+                            <h3>书名:魔鬼经济学</h3>
+                            <p>02-20</p>
+                        </div>
+                        <div style="width:19%;display: inline-block" th:remove="all">
+                            <span>
+                                <img style="width:100%;" src="img/img01.jpg" alt="">
+                                <button class="remove">删除</button>
+                            </span>
+                            <h3>书名:魔鬼经济学</h3>
+                            <p>02-20</p>
+                        </div>
+                        <div style="width:19%;display: inline-block" th:remove="all">
+                           <span>
+                                <img style="width:100%;" src="img/img01.jpg" alt="">
+                                <button class="remove">删除</button>
+                            </span>
+                            <h3>书名:魔鬼经济学</h3>
+                            <p>02-20</p>
+                        </div>
+                        <div style="width:19%;display: inline-block" th:remove="all">
+                            <span>
+                                <img style="width:100%;" src="img/img01.jpg" alt="">
+                                <button class="remove">删除</button>
+                            </span>
+                            <h3>书名:魔鬼经济学</h3>
+                            <p>02-20</p>
+                        </div>
+                        <div style="width:19%;display: inline-block" th:remove="all">
+                            <span>
+                                <img style="width:100%;" src="img/img01.jpg" alt="">
+                                <button class="remove">删除</button>
+                            </span>
+                            <h3>书名:魔鬼经济学</h3>
+                            <p>02-20</p>
+                        </div>
+                    </div>
+                    <div class="nav01">
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination"  th:replace="pc/首页--搜索::pagination">
+                                <li>
+                                    <a href="#" aria-label="Previous">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li class="active"><a href="#">1</a></li>
+                                <li><a href="#">2</a></li>
+                                <li><a href="#">3</a></li>
+                                <li><a href="#">4</a></li>
+                                <li><a href="#">5</a></li>
+                                <li><a href="#">6</a></li>
+                                <li><a href="#">7</a></li>
+                                <li><a href="#">8</a></li>
+                                <li><a href="#">9</a></li>
+                                <li>
+                                    <a href="#" aria-label="Next">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<footer th:replace="pc/index::index_footer">
+    <div class="container">
+        <div class="footer-nav row">
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/aboutUs.png" alt=""></h3>
+                    <p>出品单位:山东省方志馆</p>
+                    <p>济南市历下区旅游路25998号</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/function.png" alt=""></h3>
+                    <p>使用过程中遇到的问题，包括产品描述、</p>
+                    <p> 使用方法、功能介绍、报告解读，都可以</p>
+                    <p> 在这找到答案</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/contactUs.png" alt=""></h3>
+                    <p>0531-82622872</p>
+                    <p>Email:fzg@dfz.cn</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/webapp.png" alt=""></h3>
+                    <img src="img/qrcode.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-text">出品单位：济南方志馆 &nbsp;&nbsp;&nbsp;&nbsp; 未经同意，不得转载本网站之所有信息及作品</p>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/pc/js/jquery.min.js}"></script>
+<script src="js/zhscomm.js" th:src="@{/templates/pc/js/zhscomm.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/templates/pc/js/bootstrap.min.js}"></script>
+<script src="layer/layer.js" th:src="@{/templates/pc/layer/layer.js}"></script>
+<script>
+    $('.remove').click(function(){
+        var desiredId=$(this).attr("desiredId");
+        layer.open({
+            content: '<p>确认删除？</p><p>删除后不可恢复</p>'
+            , btn: ['确认', '取消']
+            , yes: function (index, layero) {
+                $.get("/m/user/mybooksdesireddel/" + desiredId, {},
+                        function (data) {
+                            if ("ok" == data) {
+                                layer.open({
+                                    content: '<p>已经成功删除</p>'
+                                    , btn: ['确认']
+                                    , yes: function (index) {
+                                        window.location.href="/p/user/tomybooksdesired"
+                                    }
+                                });
+                            }
+                            layer.close(index);
+                        });
+            }
+        });
+//        $(this).parent().parent().remove();
+    })
+</script>
+<script>
+    var formId = "bookDesiredForm";
+</script>
+<script th:replace="pc/首页--搜索::js_page">
+</script>
+</body>
+</html>

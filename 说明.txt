@@ -1,0 +1,23 @@
+数据库使用mysql5.7
+jdk使用JDK8
+初始化数据结构 执行 doc/db/初始化数据库.sql
+修改程序连接配置  bookserver\src\main\resources\application.yml内
+    url: jdbc:mysql://127.0.0.1:3307/book?useUnicode=true&characterEncoding=UTF-8&useSSL=false&createDatabaseIfNotExist=true
+    username: root
+    password: 111111
+
+修改程序启动端口 8080
+bookserver\src\main\resources\application.yml内
+server:
+  port: 8080
+
+启动
+  bookserver 下  cn.zhsit.ServerApplication.main
+
+打包部署文件在 bookserver/target/bookserver.jar
+
+启动项目命令  java -jar  bookserver.jar
+启动后，需要时，会在同级目录下自动生成文件存储文件夹和日志文件夹
+
+访问路径 http://ip:port
+

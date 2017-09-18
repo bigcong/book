@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        .use-mas p {
+            background: #F4F4F4;
+            padding: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .use-mas{
+            margin-bottom: 2rem;
+        }
+        .p-top{
+            margin:2rem 0;
+        }
+        .p-top p{
+            text-align: center;
+            margin:0;
+            color: #b18344;
+        }
+        img{
+            margin-bottom: .5rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/toinfomanage}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">身份认证</p>
+    </div>
+</header>
+<p style="margin: 0;height: 1rem;background:#F0EFF5"></p>
+<section>
+    <div class="container" th:object="${authp}">
+        <div class="p-top">
+            <p>您的审核资料已经提交</p>
+            <p>后台正在审核中，请耐心等待！</p>
+        </div>
+        <div class="use-mas">
+            <p>姓名：<span th:text="*{name}">探路者</span></p>
+            <p>手机号码：<span th:text="*{mobile}">13123456789</span></p>
+            <p >现居住地址：<span th:text="*{address}">山东省济南市历下区旅游路方志馆2楼某某某收</span></p>
+        </div>
+        <div style="text-align: center">
+            <span style="width:47%;" class="left">
+                <!--<img width="100%" src="img/img05.jpg" alt=""  th:src="@{'/file/getauthfile?id='+*{imgFrontId}}">-->
+                <img width="100%" src="img/img05.jpg" alt=""  th:src="@{/file/getauthfile(id=*{imgFrontId})}">
+                身份证正面
+            </span>
+            <span style="width: 47%;" class="right">
+                <img width="100%" src="img/img06.jpg" alt=""  th:src="@{/file/getauthfile(id=*{imgBackId})}">
+                身份证反面
+            </span>
+        </div>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+</body>
+</html>

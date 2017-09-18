@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+
+        .glyphicon {
+            display: block;
+            font-size: 2rem;
+        }
+
+        .input-group input {
+            border-radius: 0;
+            height: 40px;
+            background: rgba(225, 225, 225, 0.9);
+            border: 2px solid #88654F !important;
+            border-right: none !important;
+        }
+
+        .input-group span {
+            border-radius: 0;
+            padding: 8px 18px;
+            border: 2px solid #88654F;
+            border-left: none;
+            background: #EA4235;
+            cursor: pointer;
+        }
+
+        .input-position {
+            position: absolute;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        h4 {
+            height: 31%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #19110F;
+        }
+
+        p {
+            height: 23%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #6C6C6C;
+        }
+
+        .row {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        .row:after {
+            content: '';
+            display: block;
+            width: 93%;
+            visibility: visible;
+            border-bottom: 1px solid #E2E2E2;
+            margin: 0 auto;
+            transform: translateY(1rem);
+        }
+
+        .container {
+            background: #fff;
+        }
+
+        .seek .form-control {
+            background: #ECECEC;
+            width: 88%;
+        }
+
+        .header-bg {
+            line-height: 14px;
+        }
+
+        .seek-head {
+            margin: 2rem 0;
+        }
+
+        .seek-head h4 {
+            font-weight: 700;
+        }
+
+        .dele {
+            margin-top: -22px;
+        }
+
+        .seek-body ul li {
+            display: inline-block;
+            width: 32%;
+            text-align: center;
+        }
+
+        .seek-body ul li span {
+            display: inline-block;
+            border: 1px solid #E4E4E4;
+            padding: 5px 10px;
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<!-- 主体页面 -->
+<div class="content">
+    <section>
+        <!-- banner图 -->
+        <div style="position:relative">
+            <img width="100%" src="img/img04.jpg" alt="" th:src="@{/templates/app/img/img04.jpg}">
+            <div class="input-position">
+                <div class="col-xs-12">
+                    <div id="input_search_jiaohuan" class="input-group" style="margin-bottom: 1rem">
+                        <input type="text" class="form-control" onclick="seek(this)" placeholder="查找交换书籍名称"
+                               aria-label="...">
+                            <span class="input-group-addon">
+                              <i class="glyphicon glyphicon-search"></i>
+                            </span>
+                    </div>
+                    <div id="input_search_xinyuan" class="input-group">
+                        <input type="text" class="form-control" onclick="seek(this)" placeholder="查找心愿书籍名称"
+                               aria-label="...">
+                            <span class="input-group-addon" style="    background: #EBE5D7;">
+                              <i class="glyphicon glyphicon-search"></i>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row" th:each="book:${bookList}">
+                <a th:href="@{'/m/book/bookdetail/'+${book.id}}">
+                    <div class="col-xs-5">
+                        <img width="100%" th:height="90" src="img/img01.jpg" alt=""
+                             th:src="${book.path == null}?@{/templates/app/img/img01.jpg}:@{/file/getfile(path=${book.path})}">
+                    </div>
+
+                    <div class="col-xs-7" style="padding-left: 0">
+                        <h4 th:text="${book.name}">经济学 第18版经济学 第18版经济学 第18版</h4>
+                        <p th:text="${book.author}">作者：保罗*萨摩尔森经济学 第18版经济学 第18版</p>
+                        <p>想要得到的书：无</p>
+                        <p th:text="${#dates.format(book.createTime,'MM-dd')}">04-22</p>
+                    </div>
+                </a>
+            </div>
+            <div class="row" th:remove="all">
+                <div class="col-xs-5">
+                    <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+                </div>
+                <div class="col-xs-7" style="padding-left: 0">
+                    <h4>经济学 第18版</h4>
+                    <p>作者：保罗*萨摩尔森</p>
+                    <p>想要得到的书：无</p>
+                    <p>04-22</p>
+                </div>
+            </div>
+            <div class="row" th:remove="all">
+                <div class="col-xs-5">
+                    <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+                </div>
+                <div class="col-xs-7" style="padding-left: 0">
+                    <h4>经济学 第18版</h4>
+                    <p>作者：保罗*萨摩尔森</p>
+                    <p>想要得到的书：无</p>
+                    <p>04-22</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="app/index::footer('特色搜索')">
+        <div>
+            <ul class="nav">
+                <li>
+                    <i class="glyphicon glyphicon-globe"></i>
+                    首页
+                </li>
+                <li class="red-bg">
+                    <i class="glyphicon glyphicon-search"></i>
+                    特色搜索
+                </li>
+                <li>
+                    <i class="glyphicon glyphicon-user"></i>
+                    我的
+                </li>
+            </ul>
+        </div>
+    </footer>
+</div>
+<!-- 搜索页面 -->
+<div style="display: none;" class="seek">
+    <header>
+        <form id="search-book" th:method="post" th:action="@{/m/search/search}">
+            <div class="header-bg">
+                <!--<a th:href="@{/m/search/search}">-->
+                <input id="searchType" th:name="searchType" th:type="hidden">
+                <input id="searchKey" type="text" th:name="searchKey" class="form-control" placeholder="查找交换书籍名称"
+                       th:placeholder="查找书籍名称" aria-label="...">
+                <span id="zhs_serarch" class="input-group-addon"
+                      style="position: absolute;right:18%;top: 15px;border: none;">
+                     <i class="glyphicon glyphicon-search" style="display: inline-block;font-size: 1.5rem;"></i>
+                </span>
+                <!--</a>-->
+                <span class="right cancel" style="margin-top: -24px;">取消</span>
+            </div>
+        </form>
+    </header>
+    <section style="background:none;">
+        <div class="container">
+            <div class="seek-head">
+                <h4>搜索历史</h4>
+                <i style="color: #575759" class="glyphicon glyphicon-trash right dele"></i>
+            </div>
+            <div class="seek-body">
+                <ul>
+                    <li th:each="search:${searchHis}">
+                        <span th:text="${search.searchKey}">女士针织</span>
+                    </li>
+                    <li th:remove="all">
+                        <span>女士针织</span>
+                    </li>
+                    <li th:remove="all">
+                        <span>女士针织</span>
+                    </li>
+                    <li th:remove="all">
+                        <span>女士针织</span>
+                    </li>
+                    <li th:remove="all">
+                        <span>女士针织</span>
+                    </li>
+                    <li th:remove="all">
+                        <span>女士针织</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+</div>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    $(function () {
+//设置图文排版的高度
+        var height = $('.col-xs-5').height();
+        $('.col-xs-7').css('height', height + 'px');
+//点击搜索页面取消 主体页面显示  搜索页面隐藏
+        $('.cancel').click(function () {
+            $('.content').show();
+            $('.seek').hide();
+        })
+    })
+    //点击主体页面input 主体页面隐藏  搜索页面显示
+    function seek(that) {
+        $('.content').hide();
+        $('.seek').show();
+        $('.seek input').attr('placeholder', $(that).eq(0).attr('placeholder'));
+    }
+
+    $(".dele").click(function () {
+        $.get("/m/search/delsearchhis", {}, function (data) {
+            if (data == "ok") {
+                $(".seek-body").empty();
+            }
+        })
+    });
+    //    $(".glyphicon-search").click(function () {
+    //        document.getElementById('search-book').submit()
+    //    });
+
+    $("#zhs_serarch").click(function () {
+        document.getElementById('search-book').submit()
+    });
+
+    $("#input_search_jiaohuan").click(function () {
+        $("#searchType").val("jiaohuan");
+    })
+
+    $("#input_search_xinyuan").click(function () {
+        $("#searchType").val("xinyuan");
+    })
+
+    $(".seek-body ul li span").click(function () {
+        var text = $(this).text();
+        $("#searchKey").val(text);
+    });
+</script>
+</body>
+</html>

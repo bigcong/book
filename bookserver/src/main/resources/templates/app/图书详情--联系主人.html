@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body{
+            background: #F0EFF5;
+        }
+        .use-head{
+            margin:2rem 0;
+        }
+        .use-mas p{
+            background: #F4F4F4;
+            padding:1rem;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        .hint{
+            text-align: center;
+            color:#b18344;
+            padding-top: 3rem;
+            font-size: 1.6rem;
+        }
+        .hint p{
+            padding:0 2.5rem;
+        }
+        .use-mas i{
+            color:red;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{'/m/book/bookdetail/'+${bookId}}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">联系主人</p>
+    </div>
+</header>
+<p style="background: #F1F1F1;height: 0.5rem;margin:0"></p>
+<section>
+    <div style="background: #fff;padding-bottom: 2rem">
+        <div class="container">
+            <div class="use-head">
+                <p style="text-align: center"><img src="img/4088.png" alt="" th:src="@{/templates/app/img/4088.png}"></p>
+                <p style="text-align: center"  th:switch="${user.authStatus}">
+                    <img src="img/renzheng.png"  class="absolute"  alt="" th:remove="all">
+                    <img th:case="3" src="img/renzheng.png"  class="absolute" alt="" th:src="@{/templates/app/img/yirenzheng.jpg}">
+                    <img th:case="2" src="img/renzheng.png"  class="absolute" alt="" th:src="@{/templates/app/img/weirenzheng.jpg}">
+                    <img th:case="*" src="img/renzheng.png"  class="absolute" alt="" th:src="@{/templates/app/img/weirenzheng.jpg}">
+                </p>
+
+            </div>
+            <div class="use-mas">
+                <p >主人昵称：<span th:text="${user.nickname}">探路者</span></p>
+                <p>联系电话：<span th:text="${user.mobile}">13123456789 </span><i class="glyphicon glyphicon-earphone right"></i></p>
+                <p>收货地址：<span th:text="${ship.region}">山东省济南市历下区旅游路方志馆2楼某某某收</span></p>
+            </div>
+        </div>
+    </div>
+    <div class="hint">
+        <p class="hint-header">官方提示</p>
+        <p class="hint-content">单双方换书时请留存快递单号和包装照片，收到订单后也尽量
+            验货、拍照，如出现问题，可向平台提出意见反馈，但平台
+            不承担责任！</p>
+    </div>
+</section>
+<footer></footer>
+
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+</body>
+</html>

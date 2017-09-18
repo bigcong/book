@@ -1,0 +1,26 @@
+body{
+    background: #F0EFF5;
+}
+.list-group-item {
+    padding: 15px;
+    border-radius: 0 !important;
+}
+header{
+    background: url("../img/index-bg.jpg") 100%;
+    background-size: cover;
+}
+.header-bg{
+    background: none;
+}
+.file01{
+    position: absolute;
+    width: 20%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    opacity: 0;
+}
+.touxiang{
+    border-radius:50%;
+}

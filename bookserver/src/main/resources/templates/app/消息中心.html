@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+
+        section {
+            background: #fff;
+        }
+
+        ul li:last-child {
+            border: none;
+        }
+
+        li {
+            padding-top: 1rem;
+            border-bottom: 1px solid #ccc;
+        }
+
+        li p {
+            color: #666;
+        }
+
+        .read {
+            margin-left: .8rem;
+            width: .8rem;
+            height: .8rem;
+            background: red;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomine}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">消息中心</p>
+    </div>
+</header>
+<p style="margin: 0;background: #F0EFF5;height: 1rem;"></p>
+<section>
+    <div class="container">
+        <ul>
+            <li th:each="msg:${msgList}">
+                <a th:href="@{'/m/user/tomymsgdetail/'+${msg.id}}">
+                    <p>
+                        <!--<span><span th:text="${msg.senderNick}">开心的老虎</span><u class="read"-->
+                        <span><span th:text="${msg.title}">开心的老虎</span><u class="read"
+                                                                                 th:class="${msg.status}==1? 'read': ''"></u></span>
+                        <time class="right" th:text="${#dates.format(msg.createTime,'yyyy.MM.dd')}">2017.02.02</time>
+                    </p>
+                    <h4 th:text="${msg.content}">恭喜您注册成功</h4>
+                </a>
+            </li>
+            <li th:remove="all">
+                <p>
+                    <span>开心的老虎<u class=""></u></span>
+                    <time class="right">2017.02.02</time>
+                </p>
+                <h4>恭喜您注册成功</h4>
+            </li>
+            <li th:remove="all">
+                <p>
+                    <span>开心的老虎<u class=""></u></span>
+                    <time class="right">2017.02.02</time>
+                </p>
+                <h4>恭喜您注册成功</h4>
+            </li>
+            <li th:remove="all">
+                <p>
+                    <span>开心的老虎<u class="read"></u></span>
+                    <time class="right">2017.02.02</time>
+                </p>
+                <h4>恭喜您注册成功</h4>
+            </li>
+        </ul>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+</body>
+</html>

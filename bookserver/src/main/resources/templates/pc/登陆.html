@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/pc/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/font-awesome.css" th:href="@{/templates/pc/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/pc/css/common.css}"/>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/pc/css/style.css}"/>
+    <style>
+        .input-group{
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+<header></header>
+<section class="bg-img">
+    <div class="content-register">
+        <div>
+            <img src="img/register.png" alt="">
+        </div>
+        <form action="" class="form register-form" th:method="post" th:action="@{/p/user/login}" th:object="${login}">
+            <div class="input-group input-group-sm">
+                手机号/用户名/邮箱
+                <input type="text" class="form-control" placeholder="" th:field="*{name}">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+            </div>
+            <p style="text-indent: 14em;color:red" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></p>
+            <div class="input-group input-group-sm" style="margin-top: -1px;">
+                密码&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <input type="password" class="form-control" placeholder="" th:field="*{pwd}">
+                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            </div>
+            <p style="text-indent: 14em;color:red" th:if="${#fields.hasErrors('*{pwd}')}" th:errors="*{pwd}"></p>
+            <div class="input-group-sm">
+                <p style="text-align: right;margin:30px 0;">忘记密码请联系: <span style="color:#33A4F0">0531-8966666</span></p>
+            </div>
+            <div class="btn-group button right" role="group" aria-label="...">
+                <button type="button"  th:type="submit" class="btn btn-lg login">登陆</button>
+                <a th:href="@{/p/user/toregister}">
+                    <button type="button" class="btn btn-lg">&nbsp;注册&nbsp;</button>
+                </a>
+            </div>
+        </form>
+        <img class="book" src="img/book.png" alt=""  th:src="@{/templates/pc/img/book.png}">
+    </div>
+</section>
+<footer th:replace="pc/index::index_footer">
+    <div class="container">
+        <div class="footer-nav row">
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/aboutUs.png" alt=""></h3>
+                    <p>出品单位:山东省方志馆</p>
+                    <p>济南市历下区旅游路25998号</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/function.png" alt=""></h3>
+                    <p>使用过程中遇到的问题，包括产品描述、</p>
+                    <p> 使用方法、功能介绍、报告解读，都可以</p>
+                    <p> 在这找到答案</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/contactUs.png" alt=""></h3>
+                    <p>0531-82622872</p>
+                    <p>Email:fzg@dfz.cn</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/webapp.png" alt=""></h3>
+                    <img src="img/qrcode.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-text">出品单位：济南方志馆 &nbsp;&nbsp;&nbsp;&nbsp; 未经同意，不得转载本网站之所有信息及作品</p>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/pc/js/jquery.min.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/templates/pc/js/bootstrap.min.js}"></script>
+</body>
+</html>

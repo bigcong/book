@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        section {
+            text-align: center;
+        }
+
+        .img {
+            display: inline-block;
+            width: 35%;
+            margin: 0 auto;
+            text-align: center;
+            margin-top: 2rem;
+            position: relative;
+        }
+
+        .img img {
+            width: 100%;
+        }
+
+        .img .duigou {
+            width: 25%;
+            position: absolute;
+            bottom: 5px;
+            right: -6px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/toinfomanage}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">认证</p>
+        <a href="" class="right" style="margin-top: -24px;">跳过</a>
+    </div>
+</header>
+<p style="background: #F1F1F1;height: 0.5rem;margin:0"></p>
+<section>
+    <a th:href="@{/m/user/topersonauth}">
+        <div class="img">
+            <img class="renzheng" src="img/attestation-geren.jpg" alt=""
+                 th:src="@{/templates/app/img/attestation-geren.jpg}">
+            <img class="duigou" src="img/right.png" alt="" th:src="@{/templates/app/img/right.png}">
+        </div>
+    </a>
+    <br>
+    <a th:href="@{/m/user/toorgauth}">
+        <div class="img">
+            <img class="renzheng" src="img/attestation-danwei.jpg" alt=""
+                 th:src="@{/templates/app/img/attestation-danwei.jpg}">
+        </div>
+    </a>
+</section>
+<footer></footer>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    $('.img').click(function () {
+        var rightPngPath = "img/right.png";
+        var javaRightPngPath = "[[@{/templates/app/img/right.png}]]";
+        if (javaRightPngPath.indexOf("@{") > 0) {
+        } else {
+            rightPngPath = javaRightPngPath;
+        }
+        var imgTag = "<img class=\"duigou\" src='" + rightPngPath + "' alt=\"\">";
+        $('.img .duigou').remove()
+        $(this).append(imgTag);
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+
+        .container {
+            background: #fff;
+        }
+
+        .file01 {
+            width: 90%;
+            height: 100%;
+            display: block;
+            position: absolute;
+            top: 0;
+            right: 0;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .form-control {
+            background: #F1F1F1;
+            border-radius: 0;
+            border: none;
+        }
+
+        .button-bg {
+            margin-left: -15px;
+            margin-right: -15px;
+            padding-top: 1rem;
+            background: #F0EFF5;
+            padding: 1rem;
+        }
+
+        .form-group {
+            position: relative;
+            margin-top: 5px;
+            border: none;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomybooksuploaded}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">修改书籍</p>
+    </div>
+</header>
+<p style="margin:0;background:#F0EFF5;height:.5rem;"></p>
+<section>
+    <div class="container">
+        <img width="30%" src="img/myshuji.png" style="padding: 1rem 0;" alt=""
+             th:src="@{/templates/app/img/myshuji.png}">
+        <form action="" enctype="multipart/form-data" th:method="post" th:action="@{/m/user/booksmodify}"  th:object="${book}">
+            <input type="hidden" th:field="*{id}">
+            <div class="form-group">
+                <label style="position: absolute;top:11px;left: 10px;">书名:</label>
+                <input type="text" class="form-control" value="经济学第18版(13456)" style="padding-left:50px"
+                       th:field="*{name}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></p>
+            </div>
+            <div class="form-group">
+                <label style="position: absolute;top:11px;left: 10px;">作者:</label>
+                <input type="text" class="form-control" value="萨摩尔森" style="padding-left:50px" th:field="*{author}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{author}')}" th:errors="*{author}"></p>
+            </div>
+            <div class="form-group">
+                <label style="position: absolute;top:11px;left: 10px;">出版商:</label>
+                <input type="text" class="form-control" value="北京大学出版社" style="padding-left:60px" th:field="*{publishers}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{publishers}')}" th:errors="*{publishers}"></p>
+            </div>
+            <div class="form-group">
+                <label style="position: absolute;top:11px;left: 10px;">版本号/页数:</label>
+                <input type="text" class="form-control" style="padding-left:95px" th:field="*{pages}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{pages}')}" th:errors="*{pages}"></p>
+            </div>
+            <div class="form-group">
+                <label style="position: absolute;top:11px;left: 10px;">ISBN:</label>
+                <input type="text" class="form-control" style="padding-left:60px" th:field="*{isbn}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{isbn}')}" th:errors="*{isbn}"></p>
+            </div>
+            <p class="line">
+                添加图片
+            </p>
+            <div class="form-group">
+                <div id="img" class="col-sm-9">
+                    <div class="moren" style="display: inline-block;position: relative;width: 31%;"  th:each="imgFile:${fileList}">
+                        <img width="100%" src="img/img01.jpg" alt="" th:src="@{/file/getfile(path=${imgFile.path})}">
+                        <input class="file01" type="file" name="imgFiles" style="display: none;">
+                        <i th:id="${imgFile.id}"
+                           style="position: absolute;display: block;top: -8px;right: -10px;font-size: 18px;"
+                           class="glyphicon glyphicon-remove-circle remove"></i>
+                    </div>
+
+                    <div style="display: inline-block;position: relative;width: 31%;">
+                        <img width="100%" src="img/file-upload.jpg" alt="" th:src="@{/templates/app/img/file-upload.jpg}">
+                        <input class="file01" type="file" name="imgFiles">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 1rem">
+                <label style="position: absolute;top:11px;left: 10px;">文字:</label>
+                <textarea class="form-control" rows="5" style="padding-left: 50px" th:field="*{descr}"></textarea>
+                <p style="color:red" th:if="${#fields.hasErrors('*{descr}')}" th:errors="*{descr}"></p>
+            </div>
+            <div class="button-bg">
+                <button type="button" th:type="submit" class="btn btn-danger btn-lg btn-block register" style="margin: 1rem 0;">保存
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="layer_mobile/layer.js" th:src="@{/templates/app/layer_mobile/layer.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    //input file 把上传的头像显示出来
+    //console.log()
+    var num = $('.moren').length + 1;
+    $(document).delegate('.file01', 'change', function () {
+
+        var fileValue = $('.file01').val().split("\\")[2];
+        var file = this.files[0];
+        if (!/image\/\w+/.test(file.type)) {
+            alert("请确保文件为图像类型");
+            return false;
+        }
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            var uploadImg = "img/file-upload.jpg";
+            var javaUploadImgPath = "[[@{/templates/app/img/file-upload.jpg}]]";
+            if (javaUploadImgPath.indexOf("@{") > 0) {
+            } else {
+                uploadImg = javaUploadImgPath;
+            }
+            $('#img div:nth-child(' + num + ') img').attr('src', this.result)
+            $('#img div:nth-child(' + num + ') input').css('display', 'none');
+            var remove = '<i style="position: absolute;display: block;top: -8px;right: -10px;font-size: 18px;" class="glyphicon glyphicon-remove-circle remove"></i>';
+            $('#img div:nth-child(' + num + ')').append(remove);
+            var img = '<div style="display: inline-block;position: relative;width: 31%;margin-right: 5px"><img width="100%" src=' + uploadImg + ' alt=""><input class="file01" type="file" name="imgFiles"></div>';
+            $('#img').append(img);
+            num++;
+            console.log(num)
+        }
+    })
+    $(document).delegate('.remove', 'click', function () {
+
+        var obj = $(this);
+        var delImgId = $(this).attr("id");
+        if(delImgId==null){
+            num--;
+            $(obj).parent().remove();
+           return;
+        }
+        num--;
+        //询问框
+        layer.open({
+            content: '<p>确认删除？</p><p>删除后不可恢复</p>'
+            , btn: ['确认', '取消']
+            , yes: function (index, layero) {
+                $.get("/m/user/mybooksimgdel/" + delImgId, {},
+                        function (data) {
+                            if ("ok" == data) {
+                                layer.open({
+                                    content: '<p>已经成功删除</p>'
+                                    , btn: ['确认']
+                                    , yes: function (index) {
+                                        $(obj).parent().remove();
+                                        layer.close(index);
+                                    }
+                                });
+                            }
+                            layer.close(index);
+                        });
+            }
+        });
+
+        console.log(num)
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+server:
+  port: 8082
+
+pt: test
+
+
+spring:
+  thymeleaf:
+    cache: true
+
+  http:
+    multipart:
+      enabled: true
+      max-file-size:  128MB
+      max-request-size: 128MB
+  devtools:
+    restart:
+      additional-paths: bookserver/src/main/java,bookserver/src/main/resources,share/src/main/java,share/src/main/resources
+      exclude: bookserver/static/**,bookserver/public/**
+
+  datasource:
+    name: book
+    url: jdbc:mysql://127.0.0.1:3306/book?useUnicode=true&characterEncoding=UTF-8&useSSL=false&createDatabaseIfNotExist=true
+    username: root
+    password:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    minIdle: 1
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20
+
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:configs/ehcache.xml
+
+mybatis:
+  mapperLocations: classpath*:mybatis/mysql/*/*.xml
+
+
+zhsit:
+    store: zhsstore
+    #未操作超时时间（秒）
+    expirySecond: 1800
+    #pc登录地址
+    pcLoginUrl: /p/user/tologin
+    #移动端登录地址
+    mobileLoginUrl: /m/user/tologin
+    #pc设备404时跳转页面（原模版页面）
+    pc404Html:  pc/404
+    #移动设备404时跳转页面（原模版页面）
+    mobile404Html:  app/404
+    #pc设备405时跳转页面（原模版页面）
+    pc405Html:  pc/405
+    #移动设备404时跳转页面（原模版页面）
+    mobile405Html:  app/405
+    #pc设备500时跳转页面（原模版页面）
+    pc500Html:  pc/500
+    #移动设备500时跳转页面（原模版页面）
+    mobile500Html:  app/500
+    #无权限pc端跳转地址
+    noAuthorityPcUrl: /p/noauthorityurl.html
+    #无权限移动端跳转地址
+    noAuthorityMobileUrl: /m/noauthorityurl.html
+    #不受登录拦截的url列表
+    loginExcludeUrl:
+      - /p/index.html
+      - /pa/**/login
+      - /pa/*/logout
+    authority:
+#      systemName: authorityserver

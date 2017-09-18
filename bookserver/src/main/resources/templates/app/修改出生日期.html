@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <link rel="stylesheet" type="text/css" href="css/mobiscroll.custom-2.6.2.min.css" th:href="@{/templates/app/css/mobiscroll.custom-2.6.2.min.css}">
+    <style>
+        .use-mas p {
+            background: #F4F4F4;
+            padding: 1rem;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+
+        .use-mas {
+            margin-bottom: 2rem;
+        }
+
+        .p-top {
+            margin: 2rem 0;
+        }
+
+        .p-top p {
+            text-align: center;
+            margin: 0;
+            color: #b18344;
+        }
+
+        img {
+            margin-bottom: .5rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/toinfomanage}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">修改出生日期</p>
+        <a href="#" class="right" style="margin-top: -24px;">确定</a>
+    </div>
+</header>
+<p style="margin: 0;height: 1rem;background:#F0EFF5"></p>
+<section th:object="${birthday}">
+    <div style="padding: 1rem;">
+        <form action="" id="modify-birthday" th:method="post" th:action="@{/m/user/modifybirthday}" th:object="${birthday}">
+            <label for="txtBirthday">出生日期：</label>
+            <input type="text" id="txtBirthday" name="birthday"
+                   th:value="${#dates.format(birthday.birthday,'yyyy-MM-dd')}"
+                   style="border: 1px solid #ccc !important;border-radius: 3px;width: 70%;padding-left: 1rem;"/>
+        </form>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script src="js/mobiscroll.custom-2.6.2.min.js" th:src="@{/templates/app/js/mobiscroll.custom-2.6.2.min.js}"></script>
+<script>
+    $(function () {
+        var opt = {
+            theme: "android-ics light",
+            display: 'modal', //显示方式
+            lang: "zh",
+            setText: '确定', //确认按钮名称
+            cancelText: "取消",
+            dateFormat: 'yyyy-mm-dd', //返回结果格式化为年月格式
+            dateOrder: 'yyyymmdd', //面板中日期排列格式
+            onBeforeShow: function (inst) {
+                //	console.info( inst.settings.wheels);
+            },
+            headerText: function (valueText) { //自定义弹出框头部格式
+                //	console.info(valueText);
+                array = valueText.split('-');
+                return array[0] + "年" + array[1] + "月" + array[2] + "日";
+            }
+        };
+
+        $("#txtBirthday").mobiscroll().date(opt);
+
+    });
+
+    $('.right').click(function () {
+        document.getElementById('modify-birthday').submit()
+    })
+</script>
+</body>
+</html>

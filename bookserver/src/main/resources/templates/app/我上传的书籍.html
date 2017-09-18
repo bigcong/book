@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+        .container {
+            background: #fff;
+        }
+        h4{
+            height: 31%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #19110F;
+        }
+        .col-xs-7 p{
+            height: 23%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #6C6C6C;
+        }
+        .row {
+            margin-top:2rem;
+        }
+        .button{
+            text-align: right;
+            border-top: 1px solid #E0E0E0;
+            clear: both;
+            width: 91%;
+            margin: 10px auto 0;
+            padding: 1rem 0;
+        }
+        .del{
+            padding:3px 20px;
+            color: #fff;
+            border:none;
+            background:#EA4235;
+        }
+        .compile{
+            padding:3px 20px;
+            color: #EA4235;
+            border:none;
+            background:#EAE5D7;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomine}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">我上传的书籍</p>
+        <a href="" class="right" th:href="@{/m/user/tomybooksadd}" style="margin-top: -24px;"><i class="glyphicon glyphicon-plus" style="color: #E94029"></i></a>
+    </div>
+</header>
+<p style="margin: 0;height:.5rem;background:#F0EFF5"></p>
+<section>
+    <!--<div class="container"  th:replace="app/我上传的书籍&#45;&#45;循环书籍变量::booklist-loop">-->
+    <div class="container" >
+        <div class="row" th:each="book : ${bookList}">
+            <div class="col-xs-5">
+                <img width="100%" th:height="90" src="img/img01.jpg" alt=""
+                     th:src="${book.path == null} ? @{/templates/app/img/img01.jpg}:@{/file/getfile(path=${book.path})}">
+            </div>
+            <div class="col-xs-7" style="padding-left:0;margin-bottom:1rem">
+                <h4  th:text="${book.name}">经济学 第18版经济学 第18版经济学 第18版</h4>
+                <p th:text="${book.author}">作者：保罗*萨摩尔森经济学 第18版经济学 第18版</p>
+                <p>想要得到的书：无</p>
+                <p th:text="${#dates.format(book.createTime,'MM-dd')}">04-22</p>
+            </div>
+            <p class="button">
+                <a th:href="@{'/m/user/tomodifybook/'+${book.id}}">
+                    <button class="btn btn-default compile" type="submit">编辑</button>
+                </a>
+                <a th:href="@{'/m/user/delbook/'+${book.id}}">
+                    <button class="btn btn-default del" type="submit">删除</button>
+                </a>
+            </p>
+            <p style="margin: 0;height:.5rem;background:#F0EFF5"></p>
+        </div>
+        <div class="row"  th:remove="all">
+            <div class="col-xs-5">
+                <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+            </div>
+            <div class="col-xs-7" style="padding-left: 0;margin-bottom:1rem">
+                <h4>经济学 第18版</h4>
+                <p>作者：保罗*萨摩尔森</p>
+                <p>想要得到的书：无</p>
+                <p>04-22</p>
+            </div>
+            <p class="button">
+                <button class="btn btn-default compile" type="submit">编辑</button>
+                <button class="btn btn-default del" type="submit">删除</button>
+            </p>
+            <p style="margin: 0;height:.5rem;background:#F0EFF5"></p>
+        </div>
+        <div class="row"  th:remove="all">
+            <div class="col-xs-5">
+                <img width="100%" src="img/img01.jpg" alt=""  th:src="@{/templates/app/img/img01.jpg}">
+            </div>
+            <div class="col-xs-7" style="padding-left: 0;margin-bottom:1rem">
+                <h4>经济学 第18版</h4>
+                <p>作者：保罗*萨摩尔森</p>
+                <p>想要得到的书：无</p>
+                <p>04-22</p>
+            </div>
+            <p class="button">
+                <a th:href="@{'/m/user/tomodifybook/'+${book.id}}">
+                    <button class="btn btn-default compile" type="submit">编辑</button>
+                </a>
+                <a th:href="@{'/m/user/delbook/'+${book.id}}">
+                    <button class="btn btn-default del" type="submit">删除</button>
+                </a>
+            </p>
+            <p style="margin: 0;height:.5rem;background:#F0EFF5"></p>
+        </div>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    $(function () {
+        var height = $('.col-xs-5').height();
+        $('.col-xs-7').css('height', height + 'px');
+
+
+        //删除
+        $('.del').click(function () {
+            $('.row').has(this).remove()
+        })
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <link rel="stylesheet" href="css/addressmanage.css" th:href="@{/templates/app/css/addressmanage.css}">
+
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomine}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">地址管理</p>
+    </div>
+</header>
+<p style="margin: 0;height: 1rem;background: #F0EFF5"></p>
+<section>
+    <ul>
+        <li th:each="address : ${addressList}">
+            <div class="box">
+                <p><span th:text="${address.name}">王子墨</span><span style="margin-left:3rem" th:text="${address.mobile}">13123456789</span>
+                </p>
+                <p th:text="${address.region}">山东省济南市历下区港沟街道15099号中铁逸都国际</p>
+                <p class="operation">
+                    <a th:href="@{'/m/user/setdefault/'+${address.id}}">
+                        <span class="default" th:class="${address.defaultAddress} ? 'default' : ''"><u></u>设为默认</span>
+                    </a>
+                    <a th:href="@{'/m/user/deladdress/'+${address.id}}">
+                        <span style="margin-left: 2rem" class="right del"><i class="glyphicon glyphicon-trash"></i>删除</span>
+                    </a>
+                    <a th:href="@{'/m/user/tomodifyshippingaddress/'+${address.id}}">
+                        <span class="right compile"><i class="glyphicon glyphicon-edit"></i>编辑</span>
+                    </a>
+                </p>
+            </div>
+        </li>
+        <li  th:remove="all">
+            <div class="box">
+                <p><span>王子墨</span><span style="margin-left:3rem">13123456789</span></p>
+                <p>山东省济南市历下区港沟街道15099号中铁逸都国际</p>
+                <p class="operation">
+                    <span class=""><u></u>设为默认</span>
+                    <span style="margin-left: 2rem" class="right del"><i class="glyphicon glyphicon-trash"></i>删除</span>
+                    <span class="right compile"><i class="glyphicon glyphicon-edit"></i>编辑</span>
+                </p>
+            </div>
+        </li>
+    </ul>
+</section>
+<footer>
+    <a th:href="@{/m/user/toaddshippingaddress}">
+        <button type="button" class="btn btn-danger btn-lg btn-block register">添加新地址</button>
+    </a>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    $('.operation span:first-child').click(function () {
+        $('span.default').removeClass('default');
+        $(this).addClass('default')
+    })
+
+    //点击删除
+    $('.del').click(function () {
+        $('li').has(this).remove();
+    })
+</script>
+</body>
+</html>

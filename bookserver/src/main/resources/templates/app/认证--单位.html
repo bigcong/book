@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+
+        .container {
+            background: #fff;
+        }
+
+        form {
+            padding-top: 1rem;
+        }
+
+        .form-control {
+            height: 45px;
+            background: #f1f1f1;
+        }
+
+        .form-group {
+            border: none;
+        }
+
+        .upload {
+            text-align: center;
+            position: relative;
+        }
+
+        .upload img {
+            width: 49%;
+            height: 8rem;
+        }
+
+        .upload .file01 {
+            position: absolute;
+            width: 49%;
+            display: block;
+            height: 100%;
+            top: 0;
+            opacity: 0;
+        }
+
+        .upload .file02 {
+            position: absolute;
+            width: 49%;
+            display: block;
+            height: 100%;
+            top: 0;
+            right: 0;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/toauthselect}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">单位认证</p>
+        <a href="" class="right" style="margin-top: -24px;">跳过</a>
+    </div>
+</header>
+<p style="background: #F1F1F1;height: 0.5rem;margin:0"></p>
+<section>
+    <form action="" enctype="multipart/form-data" th:method="post" th:action="@{/m/user/orgauth}" th:object="${auth}">
+        <div class="container">
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="单位名称" th:field="*{orgName}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{orgName}')}" th:errors="*{orgName}"></p>
+            </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="输入负责人姓名" th:field="*{name}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{name}')}" th:errors="*{name}"></p>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="输入能收到书籍的地址" th:field="*{address}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{address}')}" th:errors="*{address}"></p>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="输入单位的办公地址" th:field="*{officeAddress}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{officeAddress}')}" th:errors="*{officeAddress}"></p>
+            </div>
+            <p class="line">
+                上传资料
+            </p>
+            <div class="upload">
+                <input type="file" class="file01 file" name="imgFront">
+                <img src="img/uplode-img02.jpg" alt="" th:src="@{/templates/app/img//uplode-img02.jpg}">
+                <input type="file" class="file02 file" name="imgBack">
+                <img src="img/uplode-img01.jpg" alt="" th:src="@{/templates/app/img/uplode-img01.jpg}">
+            </div>
+            <p style="text-align: center;margin:2rem 0;">
+                <i class="glyphicon glyphicon-list-alt"></i>
+                组织单位认证公函 <a class="red" href="">示范样本</a>
+            </p>
+        </div>
+        <p style="margin: 2rem;">
+            <button type="button" th:type="submit" class="btn btn-danger btn-lg btn-block register">提交申请</button>
+        </p>
+    </form>
+</section>
+<footer></footer>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    //input file 把上传的头像显示出来
+    $('.file').change(function () {
+        var file = this.files[0];
+        if (!/image\/\w+/.test(file.type)) {
+            alert("请确保文件为图像类型");
+            return false;
+        }
+        var that = $(this);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function (e) {
+            $(that).next().attr('src', this.result)
+        }
+    })
+
+</script>
+</body>
+</html>

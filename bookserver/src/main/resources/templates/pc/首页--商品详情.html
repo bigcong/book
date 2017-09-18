@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/pc/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/font-awesome.css" th:href="@{/templates/pc/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/pc/css/common.css}"/>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/pc/css/style.css}"/>
+    <style>
+        .input-group input {
+            border-radius: 0;
+            height: 45px;
+            background: rgba(225, 225, 225, 0.9);
+            border: 2px solid #88654F;
+            border-right: none;
+        }
+
+        .input-group span {
+            border-radius: 0;
+            padding: 12px 18px;
+            border: 2px solid #88654F;
+            border-left: none;
+            background: #EA4235;
+            cursor: pointer;
+        }
+
+        .col-sm-4 img {
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
+        .row {
+            margin-top: 20px;
+        }
+
+        .input {
+            left: auto;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .glyphicon {
+            margin-right: 5px;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="head-top">
+        <div class="container" th:replace="pc/index::top">
+            <div class="left">
+                <img src="img/user-portrait.png" alt="">
+                <span>欢迎,自由</span>
+            </div>
+            <div class="right">
+                <span><i class="glyphicon glyphicon-user"></i>个人中心</span>
+                <span style="margin-left: 20px"><i class="glyphicon glyphicon-log-out"></i>退出</span>
+            </div>
+        </div>
+    </div>
+    <div class="head-main01">
+        <div class="container input" th:replace="pc/index::search">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="查找交换书籍名称" aria-label="...">
+                   <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="查找心愿书籍名称" aria-label="...">
+                   <span class="input-group-addon" style="background: #EBE5D7;">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="mian-bg">
+        <div class="container" style="margin-bottom: 30px">
+            <p class="bread-nav"><a href="">图书搜索></a><span th:text="${book.name}">经济学18版</span></p>
+            <div class="col-sm-12 details">
+                <ul>
+                    <li class="col-sm-5">
+                        <img class="bigImg" src="img/img02.jpg" alt=""  width="350px" height="420px" th:attr="zhsmeasure=large" th:src="${book.firstPath == null}?@{/templates/pc/img/img02.jpg}:@{/file/getfile(path=${book.firstPath})}">
+                        <div style="margin-top: 5px;">
+                            <img class="smallImg" src="img/img03.jpg" alt="" width="73px" th:attr="zhsmeasure=thumbnail" th:each="imgFile:${book.fileReqList}" th:src="@{/file/getfile(path=${imgFile.path})}">
+                            <img class="smallImg" width="73px" src="img/img03.jpg" alt="" th:remove="all">
+                            <img class="smallImg" width="73px" src="img/img03.jpg" alt="" th:remove="all">
+                            <img class="smallImg" width="73px" src="img/img03.jpg" alt="" th:remove="all">
+                            <img class="smallImg" width="73px" src="img/img03.jpg" alt="" th:remove="all">
+                            <img class="smallImg" width="73px" src="img/img03.jpg" alt="" th:remove="all">
+                        </div>
+                    </li>
+                    <li class="col-sm-7">
+                        <h3 class="title-h3" th:text="${book.name}">经济学18版</h3>
+                        <p class="gradual">作者: <span th:text="${book.author}">知己彼此</span></p>
+                        <p>出版商: <span th:text="${book.publishers}">清华大学出版社</span></p>
+                        <p class="gradual">版本号/页数: <span th:text="${book.pages}">1.0.1版本</span></p>
+                        <p>ISBN:<span th:text="${book.isbn}"></span></p>
+                        <div style="margin-top: 48px;line-height: 53px;">
+                            <div class="btn-group button" role="group" aria-label="...">
+                                <button type="button" class="btn btn-lg login" th:id="${book.id}">
+                                    <i class="glyphicon glyphicon-earphone"></i>联系主人
+                                </button>
+                                <!--<button type="button" class="btn btn-lg" th:onclick="'goPage(\'/p/user/tomybooksdesired\')'">-->
+                                <button type="button" class="btn btn-lg" th:onclick="'document.getElementById(\'searchXinYuan\').submit()'">
+                                    <i class="glyphicon glyphicon-heart"></i>心愿书单
+                                </button>
+                            </div>
+                            <div class="right">
+                                <button class="btn btn-default"  th:id="${book.id}" th:attr="collect=${collect}"><i class="glyphicon glyphicon-star-empty"></i><span th:text="${collect}?'已收藏':'收藏'" id="collectShow" >收藏</span>
+                                </button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <p class="right" style="background:#fff;padding:20px 50px 50px;width: 100%;" th:text="${book.descr}">
+                本书是长篇小说
+            </p>
+        </div>
+    </div>
+</section>
+<footer th:replace="pc/index::index_footer">
+    <div class="container">
+        <div class="footer-nav row">
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/aboutUs.png" alt=""></h3>
+                    <p>出品单位:山东省方志馆</p>
+                    <p>济南市历下区旅游路25998号</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/function.png" alt=""></h3>
+                    <p>使用过程中遇到的问题，包括产品描述、</p>
+                    <p> 使用方法、功能介绍、报告解读，都可以</p>
+                    <p> 在这找到答案</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/contactUs.png" alt=""></h3>
+                    <p>0531-82622872</p>
+                    <p>Email:fzg@dfz.cn</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/webapp.png" alt=""></h3>
+                    <img src="img/qrcode.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-text">出品单位：济南方志馆 &nbsp;&nbsp;&nbsp;&nbsp; 未经同意，不得转载本网站之所有信息及作品</p>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/pc/js/jquery.min.js}"></script>
+<script src="js/zhscomm.js" th:src="@{/templates/pc/js/zhscomm.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/templates/pc/js/bootstrap.min.js}"></script>
+<script src="layer/layer.js" th:src="@{/templates/pc/layer/layer.js}"></script>
+
+<script>
+    $('.login').click(function () {
+
+        var obj = $(this);
+        var bookId = obj.attr("id");
+        $.get("/m/user/checkauth", {},
+                function (data) {
+                    if ("fail" == data) {
+                        layer.open({
+                            content: '请进行认证,就可以联系到主人欧~'
+                            , btn: ['去认证', '取消']
+                            , yes: function (index) {
+                                window.location.href = "/p/user/toauthselect";
+                                $(obj).parent().remove();
+                                layer.close(index);
+                            }
+                        });
+                    } else if ("ok" == data) {
+                        window.location.href = "/p/user/contractowner/" + bookId;
+                    }
+                });
+    })
+
+
+    $("[zhsmeasure=thumbnail]").click(function () {
+        var imgPaht=$(this).attr("src");
+        $("[zhsmeasure=large]").attr("src", imgPaht);
+    })
+
+    //收藏
+    $('.btn-default').click(function () {
+        var obj = $(this);
+        var bookId = obj.attr("id");
+        var collect = obj.attr("collect");
+
+        var imgPath="img/right.png";
+        var imgPathJava="[[@{/templates/pc/img/right.png}]]";
+        if (imgPathJava.indexOf("@{") > 0) {
+        } else {
+            imgPath = imgPathJava;
+        }
+        var img = '<img src='+imgPath+'>';
+        var a = '<i class="glyphicon glyphicon-star-empty"></i>';
+
+        if (collect == "true") {
+            layer.alert(img + '已经收藏', {
+                title: a + '收藏'
+            });
+            return true;
+        }
+        $.get("/m/book/bookcollect/"+bookId,{},function (CollectionResp) {
+            if (!CollectionResp.rstatus) {
+                layer.alert(CollectionResp.msg + '', {
+                    title: a + '收藏'
+                })
+                return;
+            } else if (CollectionResp.rstatus) {
+                layer.alert(img + '恭喜收藏成功', {
+                    title: a + '收藏'
+                })
+                $("#collectShow").text('已收藏');
+                $('.btn-default').find('i').removeClass('glyphicon-star-empty');
+                $('.btn-default').find('i').addClass('glyphicon glyphicon-star')
+                return;
+            }
+        });
+    })
+
+    $('.smallImg').click(function () {
+        $('.bigImg').attr('src',$(this).attr('src'))
+    })
+</script>
+</body>
+</html>

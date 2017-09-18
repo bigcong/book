@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        .list-img {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .position {
+            position: absolute;
+            background: rgba(0, 0, 0, .5);
+            color: #fff;
+            bottom: 0;
+            width: 100%;
+            padding: 0 1rem;
+        }
+
+        p {
+            padding: 0;
+        }
+
+        .del {
+            position: absolute;
+            padding: 3px 20px;
+            border: none;
+            background: #EA4235;
+            color: #fff;
+            top: 1rem;
+            right: 1rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomine}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">我的心愿书单</p>
+        <a href="" class="right" th:href="@{/m/user/tomybooksdesiredadd}" style="margin-top: -24px;"><i class="glyphicon glyphicon-plus" style="color: #E94029"></i></a>
+    </div>
+</header>
+<p style="margin:0;background: #EFEEF4;height:.5rem;"></p>
+<section>
+    <div class="container">
+        <ul th:fragment="myDesiredList">
+            <li class="list-img" th:each="desired:${desiredList}">
+                <img width="100%" th:height="200" src="img/img02.jpg" alt="" th:src="${desired.path == null}?@{/templates/app/img/img01.jpg}:@{/file/getfile(path=${desired.path})}">
+                <button class="btn btn-default del" type="button" th:id="${desired.id}">删除</button>
+                <div class="position">
+                    <h4 th:text="${desired.name}">魔鬼经济学</h4>
+                    <span class="right" th:text="${#dates.format(desired.createTime,'MM-dd')}">04-02</span>
+                    <p >作者：<span th:text="${desired.author}">保罗*萨摩尔森</span></p>
+                </div>
+            </li>
+            <li class="list-img" th:remove="all">
+                <img width="100%" src="img/img02.jpg" alt="" th:src="@{/templates/app/img/img02.jpg}">
+                <button class="btn btn-default del" type="submit">删除</button>
+                <div class="position">
+                    <h4>魔鬼经济学</h4>
+                    <span class="right">04-02</span>
+                    <p>作者：保罗*萨摩尔森</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="layer_mobile/layer.js" th:src="@{/templates/app/layer_mobile/layer.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    $('.del').click(function () {
+//        var that = this;
+        var obj= $('.list-img').has(this);
+        var delId = $(this).attr("id");
+        //询问框
+        layer.open({
+            content: '确认要删除该书单吗?'
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                $.get("/m/user/mybooksdesireddel/" + delId, {},
+                        function (data) {
+                            if ("ok" == data) {
+                                layer.open({
+                                    content: '<p>已经成功删除</p>'
+                                    , btn: ['确认']
+                                    , yes: function (index) {
+                                        $(obj).remove();
+                                        layer.close(index);
+                                    }
+                                });
+                            }
+                            layer.close(index);
+                        });
+            }
+        });
+    })
+</script>
+</body>
+</html>

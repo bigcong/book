@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/pc/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/font-awesome.css" th:href="@{/templates/pc/css/font-awesome.css}"/>
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/pc/css/common.css}"/>
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/pc/css/style.css}"/>
+    <style>
+        .input-group input{
+            border-radius: 0;
+            height: 45px;
+            background: rgba(225,225,225,0.9);
+            border: 2px solid #88654F;
+            border-right: none;
+        }
+        .input-group span{
+            border-radius: 0;
+            padding: 12px 18px;
+            border: 2px solid #88654F;
+            border-left: none;
+            background: #EA4235;
+            cursor: pointer;
+        }
+        .col-sm-4 img{
+            width:100%;
+            margin-bottom:5px;
+        }
+        .row{
+            margin-top: 20px;
+        }
+        .input {
+            left:auto;
+            right: 0;
+            transform: translateY(-50%);
+        }
+        .glyphicon{
+            margin-right: 5px;
+        }
+        .details{
+            margin:50px 0;
+            padding: 10px;
+        }
+        .details ul li p {
+            padding: 5px 15px;
+        }
+        .details ul{
+            background: #EBEBEB;
+            padding: 20px;
+        }
+        .details>p{
+            text-align: center;
+            color: #AC7A55;
+        }
+        .btn-default,.btn-default:hover,.btn-default:active,.btn-default:focus,.btn-default:active:focus{
+            background: #EA4235;
+            border-radius: 0;
+            padding:10px 30px;
+            color: #fff;
+            display: block;
+            margin:30px auto;
+        }
+        .img{
+            width:66px;
+            height:66px;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="head-top">
+        <div class="container" th:replace="pc/index::top">
+            <div class="left">
+                <img src="img/user-portrait.png" alt="">
+                <span>欢迎,自由</span>
+            </div>
+            <div class="right">
+                <span><i class="glyphicon glyphicon-user"></i>个人中心</span>
+                <span style="margin-left: 20px"><i class="glyphicon glyphicon-log-out"></i>退出</span>
+            </div>
+        </div>
+    </div>
+    <div class="head-main01">
+        <div class="container input" th:replace="pc/index::search">
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="查找交换书籍名称" aria-label="...">
+                   <span class="input-group-addon">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="查找心愿书籍名称" aria-label="...">
+                   <span class="input-group-addon" style="background: #EBE5D7;">
+                      <i class="glyphicon glyphicon-search"></i>
+                  </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<section>
+    <div class="mian-bg">
+        <div class="container">
+            <!--<p class="bread-nav"><a href="">图书搜索></a><a href="">经济学></a>经济学18版</p>-->
+            <p class="bread-nav"><a href="">图书搜索></a></a>联系主人</p>
+        </div>
+        <div class="container" style="padding:0 200px;">
+            <div class="col-sm-12 details">
+                <ul>
+                    <li style="text-align: center" class="col-sm-3">
+                        <img class="img" src="img/4088.png" alt="">
+                        <img style="margin-top:20px" src="img/renzheng.png" alt="">
+                    </li>
+                    <li class="col-sm-9">
+                        <p>昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：<span th:text="${user.nickname}">欧欧</span></p>
+                        <p>联系电话：<span th:text="${user.mobile}">13123456789</span></p>
+                        <p>收货地址：<span th:text="${ship.region}">山东省济南市</span></p>
+                    </li>
+                </ul>
+                <p>官方提示</p>
+                <p>单双方换书时请留存快递单号和包装照片，收到订单后</p>
+                <p>也尽量验货、拍照，如出现问题，可向平台提出意见反馈，但平台不承担责任！</p>
+                <button class="btn btn-default" onclick="window.history.go(-1);" >返回</button>
+            </div>
+        </div>
+    </div>
+</section>
+<footer th:replace="pc/index::index_footer">
+    <div class="container">
+        <div class="footer-nav row">
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/aboutUs.png" alt=""></h3>
+                    <p>出品单位:山东省方志馆</p>
+                    <p>济南市历下区旅游路25998号</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/function.png" alt=""></h3>
+                    <p>使用过程中遇到的问题，包括产品描述、</p>
+                    <p> 使用方法、功能介绍、报告解读，都可以</p>
+                    <p> 在这找到答案</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/contactUs.png" alt=""></h3>
+                    <p>0531-82622872</p>
+                    <p>Email:fzg@dfz.cn</p>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>
+                    <h3><img src="img/webapp.png" alt=""></h3>
+                    <img src="img/qrcode.jpg" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <p class="footer-text">出品单位：济南方志馆 &nbsp;&nbsp;&nbsp;&nbsp; 未经同意，不得转载本网站之所有信息及作品</p>
+</footer>
+<script src="js/jquery.min.js" th:src="@{/templates/pc/js/jquery.min.js}"></script>
+<script type="text/javascript" src="js/bootstrap.min.js" th:src="@{/templates/pc/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!--<title>Document</title>-->
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+
+    <style>
+        body{
+            background: #F0EFF5;
+        }
+        input{
+            padding:1rem;
+            width:100%;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/toinfomanage}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">修改昵称</p>
+        <p href="" class="right" style="margin-top: -24px;">确定</p>
+    </div>
+</header>
+<section>
+    <div class="container">
+        <form action="" id="modify-nickname" th:method="post" th:action="@{/m/user/modifynickname}" th:object="${nickname}">
+            <input type="text" placeholder="4-20个字符，可用中英文、数字组成" th:field="*{nickname}">
+            <p style="color:red" th:if="${#fields.hasErrors('*{nickname}')}" th:errors="*{nickname}"></p>
+        </form>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    $('.right').click(function () {
+        document.getElementById('modify-nickname').submit()
+    })
+</script>
+</body>
+</html>

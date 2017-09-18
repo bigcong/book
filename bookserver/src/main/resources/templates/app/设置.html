@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+
+        .list-group-item {
+            padding: 15px;
+            border-radius: 0 !important;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/user/tomine}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">
+            设置
+        </p>
+    </div>
+</header>
+<p style="background:#F0EFF5;margin:0;height: 1rem;"></p>
+<section>
+    <div class="bs-example" data-example-id="list-group-badges">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="">
+                    <span class="right">0531-0000666</span>
+                    联系书馆
+                </a>
+            </li>
+            <li class="list-group-item">
+                <a href="">
+                    <span class="right">1.0.0</span>
+                    当前版本
+                </a>
+            </li>
+            <a href=""  th:href="@{/m/tofeedback}">
+                <li class="list-group-item">
+                    <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
+                    意见反馈
+                </li>
+            </a>
+            <!--<li class="list-group-item">-->
+                <!--<a href="">-->
+                    <!--<span class="right">5.5M</span>-->
+                    <!--清除缓存-->
+                <!--</a>-->
+            <!--</li>-->
+            <!--<li class="list-group-item">-->
+                <!--<a href="">-->
+                    <!--<span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>-->
+                    <!--软件分享-->
+                <!--</a>-->
+            <!--</li>-->
+            <a href="" th:href="@{/m/toaboutus}">
+                <li class="list-group-item">
+                    <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
+                    关于我们
+                </li>
+            </a>
+        </ul>
+    </div>
+    <div class="container">
+        <button type="button" class="btn btn-danger btn-lg btn-block register">退出登录</button>
+    </div>
+</section>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<!-- 弹出框 js-->
+<script src="layer_mobile/layer.js" th:src="@{/templates/app/layer_mobile/layer.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    $('.register').click(function () {
+        //询问框
+        layer.open({
+            content: '确定要退出软件吗'
+            , btn: ['确定', '取消']
+            , yes: function (index) {
+                window.location.href="/m/user/logout"
+                layer.close(index);
+            }
+        });
+    })
+
+</script>
+</body>
+</html>

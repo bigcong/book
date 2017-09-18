@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
+    <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
+    <style>
+        body {
+            background: #F0EFF5;
+        }
+
+        p {
+            font-size: 1.6rem;
+        }
+
+        .row {
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        h4 {
+            height: 31%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #19110F;
+        }
+
+        p {
+            height: 23%;
+            margin: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            color: #6C6C6C;
+        }
+
+        .row:after {
+            content: '';
+            display: block;
+            width: 93%;
+            visibility: visible;
+            border-bottom: 1px solid #E2E2E2;
+            margin: 0 auto;
+            transform: translateY(1rem);
+        }
+
+        .container {
+            background: #fff;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="header-bg">
+        <a class="left" href="" th:href="@{/m/search/tosearch}">
+            <i class="glyphicon glyphicon-menu-left"></i>
+        </a>
+        <p class="header-title">
+            搜索结果
+        </p>
+    </div>
+</header>
+<section>
+    <p style="background:#F0EFF5;padding: 1rem;">当前搜索：<span th:text="${searchKey}">经济学</span></p>
+    <div class="container">
+        <!-- 未搜索到结果显示 -->
+        <div style="text-align: center;padding-top: 2rem;display: none">
+            <img width="40%" src="img/seek.png" alt="" th:src="@{/templates/app/img/seek.png}">
+        </div>
+        <!-- 搜索到结果显示 -->
+        <div>
+            <div class="row" th:each="book:${bookList}">
+                <a th:href="@{'/m/book/bookdetail/'+${book.id}}">
+                    <div class="col-xs-5">
+                        <img width="100%" th:height="90" src="img/img01.jpg" alt=""
+                             th:src="${book.path == null}?@{/templates/app/img/img01.jpg}:@{/file/getfile(path=${book.path})}">
+                    </div>
+                </a>
+                <div class="col-xs-7" style="padding-left: 0">
+                    <h4 th:text="${book.name}">经济学 第18版经济学 第18版经济学 第18版</h4>
+                    <p>作者：<span th:text="${book.author}">保罗*萨摩尔森经济学 第18版经济学 第18版</span></p>
+                    <!--<p>想要得到的书：无</p>-->
+                    <p th:text="${#dates.format(book.createTime,'MM-dd')}">04-22</p>
+                </div>
+            </div>
+            <div class="row" th:remove="all">
+                <div class="col-xs-5">
+                    <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+                </div>
+                <div class="col-xs-7" style="padding-left: 0">
+                    <h4>经济学 第18版经济学 第18版经济学 第18版</h4>
+                    <p>作者：保罗*萨摩尔森经济学 第18版经济学 第18版</p>
+                    <p>想要得到的书：无</p>
+                    <p>04-22</p>
+                </div>
+            </div>
+            <div class="row" th:remove="all">
+                <div class="col-xs-5">
+                    <img width="100%" src="img/img01.jpg" alt="" th:src="@{/templates/app/img/img01.jpg}">
+                </div>
+                <div class="col-xs-7" style="padding-left: 0">
+                    <h4>经济学 第18版经济学 第18版经济学 第18版</h4>
+                    <p>作者：保罗*萨摩尔森经济学 第18版经济学 第18版</p>
+                    <p>想要得到的书：无</p>
+                    <p>04-22</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<footer></footer>
+<script src="js/jquery.min.js" th:src="@{/templates/app/js/jquery.min.js}"></script>
+<script src="js/bootstrap.min.js" th:src="@{/templates/app/js/bootstrap.min.js}"></script>
+<script src="js/common.js" th:src="@{/templates/app/js/common.js}"></script>
+<script>
+    //设置图文排版的高度
+    var height = $('.col-xs-5').height();
+    $('.col-xs-7').css('height', height + 'px');
+</script>
+</body>
+</html>
