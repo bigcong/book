@@ -356,7 +356,7 @@ public class PcUserController {
             model.addAttribute("rstatus", true);
             model.addAttribute("rmsg", "操作成功！");
         }
-        return "pc/我的心愿书单--添加书单";
+        return "pc/我的心愿书单";
     }
     /**
      * 跳往我的收藏页面
