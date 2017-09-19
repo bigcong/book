@@ -28,7 +28,7 @@ public class RootController {
         ZhsContextHandler.instance.setSessionKey(sessionKey);
         ZhsSession session = cacheHelper.getSession(sessionKey);
         if(session.getDeviceType()== DeviceType.Mobile){
-            return "forward:/m/index";
+            //return "forward:/m/index";
         }
         return "forward:/p/index0";
     }

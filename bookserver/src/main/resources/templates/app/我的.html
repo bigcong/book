@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"  content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.min.css" th:href="@{/templates/app/css/bootstrap.min.css}">
     <link rel="stylesheet" href="css/common.css" th:href="@{/templates/app/css/common.css}">
     <link rel="stylesheet" href="css/style.css" th:href="@{/templates/app/css/style.css}">
@@ -64,16 +65,19 @@
             <div style="position: relative">
                 <img width="20%" src="img/4088.png" style=" width:66px; height:66px;border-radius: 50%;" alt=""
                      th:src="${user.headPic==null}?@{/templates/app/img/4088.png}:@{/file/getauthfile(id=${user.headPic})}">
-                     <!--th:src="@{/templates/app/img/4088.png}">-->
+                <!--th:src="@{/templates/app/img/4088.png}">-->
                 <i class="glyphicon glyphicon-menu-right right middle"></i>
 
                 <p style="margin:0;" th:switch="${user.authStatus}">
-                    <img th:case="3" class="absolute" src="img/yirenzheng.jpg" alt="" th:src="@{/templates/app/img/yirenzheng.jpg}">
-                    <img th:case="2" class="absolute" src="img/weirenzheng.jpg" alt="" th:src="@{/templates/app/img/weirenzheng.jpg}">
-                    <img th:case="*" class="absolute" src="img/weirenzheng.jpg" alt="" th:src="@{/templates/app/img/weirenzheng.jpg}">
+                    <img th:case="3" class="absolute" src="img/yirenzheng.jpg" alt=""
+                         th:src="@{/templates/app/img/yirenzheng.jpg}">
+                    <img th:case="2" class="absolute" src="img/weirenzheng.jpg" alt=""
+                         th:src="@{/templates/app/img/weirenzheng.jpg}">
+                    <img th:case="*" class="absolute" src="img/weirenzheng.jpg" alt=""
+                         th:src="@{/templates/app/img/weirenzheng.jpg}">
                 </p>
             </div>
-            <p style="margin-top:1rem" th:text="${user.mobileStar}">158****2256</p>
+            <p style="margin-top:1rem" th:text="${user.mobileStar}">158****2256(认证通过才能上传书籍)</p>
         </div>
     </a>
 </header>
@@ -81,12 +85,13 @@
 <section>
     <div class="bs-example" data-example-id="list-group-badges">
         <ul class="list-group">
-            <a th:href="@{/m/user/tomybooksuploaded}">
-                <li class="list-group-item">
-                    <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
-                    <span><i class="glyphicon glyphicon-book"></i></span>
-                    上传我的书籍
-                </li>
+
+            <a th:href="@{/m/user/tomybooksuploaded}" th:hidden="${user.authStatus!=3}">
+            <li class="list-group-item" >
+                <span class="right"><i class="glyphicon glyphicon-menu-right"></i></span>
+                <span><i class="glyphicon glyphicon-book"></i></span>
+                上传我的书籍
+            </li>
             </a>
 
             <a th:href="@{/m/user/tomybooksdesired}">
