@@ -225,6 +225,12 @@ public class BooksUploadedExample extends BaseExample{
             return (Criteria) this;
         }
 
+
+        public Criteria andAreaLike(String value) {
+            addCriterion("area like", value, "area");
+            return (Criteria) this;
+        }
+
         public Criteria andPersonIdNotLike(String value) {
             addCriterion("person_id not like", value, "personId");
             return (Criteria) this;
@@ -292,6 +298,10 @@ public class BooksUploadedExample extends BaseExample{
 
         public Criteria andNameLike(String value) {
             addCriterion("name like", value, "name");
+            return (Criteria) this;
+        }
+        public Criteria orAreaLike(String value) {
+            addCriterion("area like", value, "area");
             return (Criteria) this;
         }
 

@@ -85,6 +85,15 @@
                 <input type="text" class="form-control" style="padding-left:60px" th:field="*{isbn}">
                 <p style="color:red" th:if="${#fields.hasErrors('*{isbn}')}" th:errors="*{isbn}"></p>
             </div>
+
+            <div class="form-group">
+                <label style="position: absolute;top:11px;left: 10px;">地域:</label>
+                <input type="text" class="form-control" style="padding-left:95px" th:field="*{area}">
+                <p style="color:red" th:if="${#fields.hasErrors('*{area}')}" th:errors="*{area}"></p>
+            </div>
+
+
+
             <p class="line">
                 添加图片
             </p>
@@ -101,6 +110,11 @@
                 <textarea class="form-control" rows="5" style="padding-left: 50px" th:field="*{descr}"></textarea>
                 <p style="color:red" th:if="${#fields.hasErrors('*{descr}')}" th:errors="*{descr}"></p>
             </div>
+
+
+
+
+
             <div class="button-bg">
                 <button type="submit" class="btn btn-danger btn-lg btn-block register" style="margin: 1rem 0;">保存
                 </button>

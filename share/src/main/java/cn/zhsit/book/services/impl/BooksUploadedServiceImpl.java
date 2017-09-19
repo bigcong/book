@@ -3,6 +3,7 @@ package cn.zhsit.book.services.impl;
 import cn.zhsit.authority.api.models.ConstantsAuthority;
 import cn.zhsit.authority.helpers.CacheHelper;
 import cn.zhsit.authority.interceptors.models.ZhsSession;
+import cn.zhsit.book.daos.BooksUploadedMapper;
 import cn.zhsit.book.managers.BooksUploadedManager;
 import cn.zhsit.book.models.po.BooksUploaded;
 import cn.zhsit.book.models.po.BooksUploadedExample;
@@ -40,6 +41,10 @@ public class BooksUploadedServiceImpl implements BooksUploadedService {
     private static Logger log = LoggerFactory.getLogger(BooksUploadedServiceImpl.class);
     @Autowired
     private BooksUploadedManager booksUploadedManager;
+
+    @Autowired
+    BooksUploadedMapper booksUploadedMapper;
+
     @Autowired
     private CacheHelper cacheHelper;
     @Autowired
@@ -90,6 +95,8 @@ public class BooksUploadedServiceImpl implements BooksUploadedService {
 //        bu.setContainFile(containFile.getType());
         bu.setCreateTime(current);
         bu.setModifyTime(current);
+        bu.setArea(req.getArea());
+
 
         return booksUploadedManager.insert(bu, fileGeneralList);
     }
@@ -250,13 +257,18 @@ public class BooksUploadedServiceImpl implements BooksUploadedService {
     public List<BookResp> findByName(String searchKey, Page page) {
         List<BookResp> respList = new ArrayList<>();
         BooksUploadedExample sql = new BooksUploadedExample();
-        sql.createCriteria().andNameLike("%" + searchKey + "%");
+        BooksUploaded serach = new BooksUploaded();
+        serach.setName(searchKey);
+        serach.setArea(searchKey);
+
         if (null != page) {
             sql.setPage(page);
-            Long total = booksUploadedManager.count(sql);
+
+
+            Long total = booksUploadedMapper.countByName(serach);
             page.setTotal(total);
         }
-        List<BooksUploaded> poList = booksUploadedManager.select(sql);
+        List<BooksUploaded> poList = booksUploadedMapper.searchByName(serach);
         for (BooksUploaded po : poList) {
             BookResp resp = new BookResp();
             respList.add(resp);

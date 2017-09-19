@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -57,18 +56,18 @@ public class AppSearchController {
      * @return
      */
     @RequestMapping("/search")
-    public String search(Model model,@ModelAttribute("searchKey")String searchKey,@ModelAttribute("searchType") String searchType) {
-        List<BookResp> bookList=null;
+    public String search(Model model, @ModelAttribute("searchKey") String searchKey, @ModelAttribute("searchType") String searchType) {
+        List<BookResp> bookList = null;
         ZhsSession session = cacheHelper.getSession(ZhsContextHandler.instance.getSessionKey());
         if (session.getPersonId() != null) {
-              searchHisService.createSearchHis(session.getPersonId(),searchKey);
+            searchHisService.createSearchHis(session.getPersonId(), searchKey);
         }
-        if(SearchType.JiaoHuan.getCode().equals(searchType)){
-            bookList=booksUploadedService.findByName(searchKey,null);
+        if (SearchType.JiaoHuan.getCode().equals(searchType)) {
+            bookList = booksUploadedService.findByName(searchKey, null);
             model.addAttribute("bookList", bookList);
             return "app/搜索结果";
-        }else if(SearchType.XinYuan.getCode().equals(searchType)) {
-            bookList= bookDesiredService.findByName(searchKey,null);
+        } else if (SearchType.XinYuan.getCode().equals(searchType)) {
+            bookList = bookDesiredService.findByName(searchKey, null);
             model.addAttribute("bookList", bookList);
             return "app/搜索结果--心愿";
         }
@@ -78,11 +77,11 @@ public class AppSearchController {
 
     @RequestMapping("/delsearchhis")
     @ResponseBody
-    public String delSearchHis(){
-        boolean success=false;
+    public String delSearchHis() {
+        boolean success = false;
         ZhsSession session = cacheHelper.getSession(ZhsContextHandler.instance.getSessionKey());
         if (session.getPersonId() != null) {
-              success = searchHisService.delSearchHis(session.getPersonId());
+            success = searchHisService.delSearchHis(session.getPersonId());
         }
         return success ? "ok" : "fail";
     }

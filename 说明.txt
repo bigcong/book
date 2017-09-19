@@ -21,3 +21,9 @@ server:
 
 访问路径 http://ip:port
 
+
+
+增加地域字段
+
+ALTER TABLE `book`.`t_books_uploaded` ADD COLUMN `area` varchar(255) AFTER `modify_time`;
+

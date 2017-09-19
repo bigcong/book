@@ -124,14 +124,14 @@
             <div class="input-position">
                 <div class="col-xs-12">
                     <div id="input_search_jiaohuan" class="input-group" style="margin-bottom: 1rem">
-                        <input type="text" class="form-control" onclick="seek(this)" placeholder="查找交换书籍名称"
+                        <input type="text" class="form-control" onclick="seek(this)" placeholder="查找交换书籍名称／地域"
                                aria-label="...">
                             <span class="input-group-addon">
                               <i class="glyphicon glyphicon-search"></i>
                             </span>
                     </div>
                     <div id="input_search_xinyuan" class="input-group">
-                        <input type="text" class="form-control" onclick="seek(this)" placeholder="查找心愿书籍名称"
+                        <input type="text" class="form-control" onclick="seek(this)" placeholder="查找心愿书籍名称／地域"
                                aria-label="...">
                             <span class="input-group-addon" style="    background: #EBE5D7;">
                               <i class="glyphicon glyphicon-search"></i>
@@ -206,8 +206,8 @@
             <div class="header-bg">
                 <!--<a th:href="@{/m/search/search}">-->
                 <input id="searchType" th:name="searchType" th:type="hidden">
-                <input id="searchKey" type="text" th:name="searchKey" class="form-control" placeholder="查找交换书籍名称"
-                       th:placeholder="查找书籍名称" aria-label="...">
+                <input id="searchKey" type="text" th:name="searchKey" class="form-control" placeholder="查找交换书籍名称／地域"
+                       th:placeholder="查找书籍名称或地域" aria-label="...">
                 <span id="zhs_serarch" class="input-group-addon"
                       style="position: absolute;right:18%;top: 15px;border: none;">
                      <i class="glyphicon glyphicon-search" style="display: inline-block;font-size: 1.5rem;"></i>

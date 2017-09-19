@@ -21,6 +21,7 @@ public class BooksUploadedManagerImpl implements BooksUploadedManager {
     @Autowired
     private ZhsFileGeneralMapper zhsFileGeneralMapper;
 
+
     @Override
     @Transactional
     public boolean insert(BooksUploaded bu, List<ZhsFileGeneral> files) {

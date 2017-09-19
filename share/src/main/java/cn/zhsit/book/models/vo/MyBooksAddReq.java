@@ -46,6 +46,11 @@ public class MyBooksAddReq {
     @NotBlank(message = "ISBN不能为空")
     private String isbn;
 
+
+    @NotBlank(message = "地域不能为空")
+    private String area;
+
+
     /**
      * 添加文字说明
      */
@@ -59,7 +64,7 @@ public class MyBooksAddReq {
     /**
      * 是否收藏本书
      */
-    private boolean collect=false;
+    private boolean collect = false;
     /**
      * 用户是否认证状态:1，未认证；2，认证审核中；3，认证审核通过；4，认证审核不通过；
      */
@@ -71,10 +76,31 @@ public class MyBooksAddReq {
     private String mobile;
 
 
+    public BooksUploaded getBooksUploaded() {
+        return booksUploaded;
+    }
+
+    public void setBooksUploaded(BooksUploaded booksUploaded) {
+        this.booksUploaded = booksUploaded;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public void setFileReqList(List<FileReq> fileReqList) {
+        this.fileReqList = fileReqList;
+    }
+
     /**
      * 拥有者
      */
     private String personId;
+
     public String getName() {
         return name;
     }
@@ -143,19 +169,19 @@ public class MyBooksAddReq {
     }
 
 
-    public MyBooksAddReq addFileReqList(List<ZhsFileGeneral> poList){
-        if(fileReqList==null){
+    public MyBooksAddReq addFileReqList(List<ZhsFileGeneral> poList) {
+        if (fileReqList == null) {
             fileReqList = new ArrayList<>();
         }
-        for(ZhsFileGeneral po:poList){
-            FileReq req=new FileReq();
-            BeanUtils.copyProperties(po,req);
+        for (ZhsFileGeneral po : poList) {
+            FileReq req = new FileReq();
+            BeanUtils.copyProperties(po, req);
 //            req.setPath(po.getLocation() + "/" + po.getName());
             req.setPath(po.getLocation() + "/" + po.getThumbnail());
             fileReqList.add(req);
         }
-        if(poList.size()>0){
-            firstPath=poList.get(0).getLocation()+"/"+poList.get(0).getThumbnail();
+        if (poList.size() > 0) {
+            firstPath = poList.get(0).getLocation() + "/" + poList.get(0).getThumbnail();
         }
         return this;
     }

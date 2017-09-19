@@ -2,8 +2,9 @@ package cn.zhsit.book.daos;
 
 import cn.zhsit.book.models.po.BooksUploaded;
 import cn.zhsit.book.models.po.BooksUploadedExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface BooksUploadedMapper {
     Long countByExample(BooksUploadedExample example);
@@ -27,4 +28,10 @@ public interface BooksUploadedMapper {
     int updateByPrimaryKeySelective(BooksUploaded record);
 
     int updateByPrimaryKey(BooksUploaded record);
+
+    List<BooksUploaded> searchByName(BooksUploaded record);
+
+    Long countByName(BooksUploaded record);
+
+
 }

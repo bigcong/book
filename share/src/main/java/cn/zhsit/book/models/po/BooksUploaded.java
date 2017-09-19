@@ -4,10 +4,10 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
-* 冯先生 
-* 61947666@qq.com 
-* 15652963646 
-*/
+ * 冯先生
+ * 61947666@qq.com
+ * 15652963646
+ */
 public class BooksUploaded implements Serializable {
     /**
      * ID
@@ -58,6 +58,21 @@ public class BooksUploaded implements Serializable {
      * 修改时间
      */
     private Date modifyTime;
+
+
+    private String area;
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
 
     private static final long serialVersionUID = 1L;
 
